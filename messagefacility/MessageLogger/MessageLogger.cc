@@ -176,8 +176,9 @@ fhicl::ParameterSet MessageFacilityService::ConfigurationFile(
   const size_t npos = std::string::npos;
 
   if(    (sub_start==npos && sub_end!=npos)
-      || (sub_start!=npos && sub_end==npos)
-      || (sub_start > sub_end) )
+    || (sub_start!=npos && sub_end==npos)
+    || (sub_start > sub_end)
+    || (sub_start!=0 && sub_start!=npos) )
   {
     std::cout << "Unrecognized configuration file. "
               << "Use default configuration instead.\n";
@@ -185,29 +186,30 @@ fhicl::ParameterSet MessageFacilityService::ConfigurationFile(
   }
 
   std::string fname;
+  std::auto_ptr<cet::filepath_maker> policy_ptr(new cet::filepath_maker());
 
-  if(sub_start!=npos && sub_end!=npos)
+  if (sub_start==0)  // env embedded in the filename
   {
-    std::string env = filename.substr(sub_start+2, sub_end-sub_start-2);
-    char *penv = getenv(env.c_str());
-    std::string envstr = std::string(penv ? penv : "");
-
-    fname = filename.substr(0, sub_start)
-                      + envstr
-                      + filename.substr(sub_end+1, filename.size()-sub_end-1);
+    std::string env = filename.substr(2, sub_end-2);
+    fname = filename.substr(sub_end+1);
+    policy_ptr.reset(new cet::filepath_lookup(env));
   }
-  else
+  else if (filename.find('/')==0)  // absolute path
   {
     fname = filename;
+    policy_ptr.reset(new cet::filepath_maker());
+  }
+  else                             // non-absolute path
+  {
+    std::string env = std::string("FHICL_FILE_PATH");
+    fname = filename;
+    policy_ptr.reset(new cet::filepath_lookup(env));
   }
 
   fhicl::ParameterSet pset;
-  cet::filepath_lookup_after1 lookupPolicy("FHICL_FILE_PATH");
   try {
-     fhicl::make_ParameterSet(fname,
-                              lookupPolicy,
-                              pset);
-     return pset;
+    fhicl::make_ParameterSet(fname, *policy_ptr, pset);
+    return pset;
   }
   catch (cet::exception &e) {
     std::cerr << "Configuration file \"" << fname << "\" "
@@ -215,6 +217,7 @@ fhicl::ParameterSet MessageFacilityService::ConfigurationFile(
               << ".\n"
               << "Default configuration will be used instead.\n";
   }
+
   return def;
 }
 
