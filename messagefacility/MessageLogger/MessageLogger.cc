@@ -242,14 +242,13 @@ fhicl::ParameterSet MessageFacilityService::logConsole()
   return pset;
 }
 
-fhicl::ParameterSet MessageFacilityService::logServer(int partition)
+fhicl::ParameterSet MessageFacilityService::logServer()
 {
   std::ostringstream ss;
   ss << commonPSet()
      << "  destinations : { "
      << "    server : { "
      << "      type : \"dds\" threshold : \"DEBUG\" "
-     << "      partition : " << partition << " "
      << "    } "
      << "  } " ;
 
@@ -277,7 +276,7 @@ fhicl::ParameterSet MessageFacilityService::logFile(std::string const & filename
   return pset;
 }
 
-fhicl::ParameterSet MessageFacilityService::logCS(int partition)
+fhicl::ParameterSet MessageFacilityService::logCS()
 {
   std::ostringstream ss;
   ss << commonPSet()
@@ -285,7 +284,6 @@ fhicl::ParameterSet MessageFacilityService::logCS(int partition)
      << "    console : { type : \"cout\" threshold : \"DEBUG\" } "
      << "    server : { "
      << "      type : \"dds\" threshold : \"DEBUG\" "
-     << "      partition : " << partition << " "
      << "    } "
      << "  } " ;
 
@@ -314,7 +312,7 @@ fhicl::ParameterSet MessageFacilityService::logCF(std::string const & filename, 
   return pset;
 }
 
-fhicl::ParameterSet MessageFacilityService::logFS(std::string const & filename, bool append, int partition)
+fhicl::ParameterSet MessageFacilityService::logFS(std::string const & filename, bool append)
 {
   std::ostringstream ss;
   ss << commonPSet()
@@ -326,7 +324,6 @@ fhicl::ParameterSet MessageFacilityService::logFS(std::string const & filename, 
      << "    } "
      << "    server : { "
      << "      type : \"dds\" threshold : \"DEBUG\" "
-     << "      partition : " << partition << " "
      << "    } "
      << "  } " ;
 
@@ -336,7 +333,7 @@ fhicl::ParameterSet MessageFacilityService::logFS(std::string const & filename, 
   return pset;
 }
 
-fhicl::ParameterSet MessageFacilityService::logCFS(std::string const & filename, bool append, int partition)
+fhicl::ParameterSet MessageFacilityService::logCFS(std::string const & filename, bool append)
 {
   std::ostringstream ss;
   ss << commonPSet()
@@ -349,7 +346,6 @@ fhicl::ParameterSet MessageFacilityService::logCFS(std::string const & filename,
      << "    } "
      << "    server : { "
      << "      type : \"dds\" threshold : \"DEBUG\" "
-     << "      partition : " << partition << " "
      << "    } "
      << "  } " ;
 

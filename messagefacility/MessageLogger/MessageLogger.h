@@ -491,17 +491,13 @@ private:
 public:
   static MessageFacilityService & instance();
 
-  static fhicl::ParameterSet logConsole();
-  static fhicl::ParameterSet logServer(
-                          int partition = 0
-                        );
+  static fhicl::ParameterSet logConsole( );
+  static fhicl::ParameterSet logServer( );
   static fhicl::ParameterSet logFile(
                           std::string const & filename = "logfile"
                         , bool append = false
                         );
-  static fhicl::ParameterSet logCS(
-                          int partition = 0
-                        );
+  static fhicl::ParameterSet logCS( );
   static fhicl::ParameterSet logCF(
                           std::string const & filename = "logfile"
                         , bool append = false
@@ -509,12 +505,10 @@ public:
   static fhicl::ParameterSet logFS(
                           std::string const & filename = "logfile"
                         , bool append = false
-                        , int partition = 0
                         );
   static fhicl::ParameterSet logCFS(
                           std::string const & filename = "logfile"
                         , bool append = false
-                        , int partition = 0
                         );
   static fhicl::ParameterSet logArchive(
                           std::string const & filename = "msgarchive"
