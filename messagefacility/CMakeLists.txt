@@ -31,4 +31,4 @@ add_subdirectory(MessageService)
 add_subdirectory(Utilities)
 add_subdirectory(plugins)
 # Testing
-add_subdirectory(test)
+#add_subdirectory(test)

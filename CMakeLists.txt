@@ -15,12 +15,15 @@
 #  make install
 #  make package (builds distribution tarfile)
 
-cmake_minimum_required (VERSION 2.8) # use cmake 2.8 or later
+cmake_minimum_required( VERSION 3.2 )
 
-project(messagefacility)
+project(messagefacility VERSION 2.00.02)
 
-# cetbuildtools contains our cmake modules
-find_package(cetbuildtools REQUIRED)
+# cetmodules contains our cmake modules
+find_package(cetmodules REQUIRED)
+
+# module path
+list(APPEND CMAKE_MODULE_PATH ${cetmodules_MODULE_PATH})
 
 include(CetCMakeEnv)
 cet_cmake_env()
@@ -36,13 +39,14 @@ cet_report_compiler_flags()
 
 # these are minimum required versions, not the actual product versions
 # find_ups_product defines variables for external libraries and executables
-find_ups_product(cetbuildtools v4_14_01)
 find_ups_product(cetlib_except v1_00_00)
 find_ups_product(cetlib v2_00_00)
 find_ups_product(fhiclcpp v2_17_00)
-find_ups_product(sqlite v3_08_05_00 )
+#find_ups_product(sqlite v3_08_05_00 )
 find_ups_boost(v1_50_0)
 find_ups_product(tbb)
+
+cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH)
 
 # The environment has been established, now generate the Makefiles.
 
@@ -53,4 +57,4 @@ add_subdirectory(ups)
 
 # This step enables building the package tarball
 # packaging utility
-include(UseCPack)
+#include(UseCPack)
