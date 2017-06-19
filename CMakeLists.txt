@@ -22,9 +22,6 @@ project(messagefacility VERSION 2.00.02)
 # cetmodules contains our cmake modules
 find_package(cetmodules REQUIRED)
 
-# module path
-list(APPEND CMAKE_MODULE_PATH ${cetmodules_MODULE_PATH})
-
 include(CetCMakeEnv)
 cet_cmake_env()
 
