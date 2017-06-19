@@ -6,7 +6,7 @@ set_and_check(@PROJECT_NAME@_INCDIR "${PACKAGE_PREFIX_DIR}/include")
 find_library(MF_FILEFORMAT NAMES MF_FileFormat PATHS "${@PROJECT_NAME@_LIBDIR}" NO_DEFAULT_PATH)
 find_library(MF_MESSAGELOGGER NAMES MF_MessageLogger PATHS "${@PROJECT_NAME@_LIBDIR}" NO_DEFAULT_PATH)
 find_library(MF_UTILITIES NAMES MF_Utilities PATHS "${@PROJECT_NAME@_LIBDIR}" NO_DEFAULT_PATH)
-include_directories( ${@PROJECT_NAME@_INCDIR} )
+include_directories( "${@PROJECT_NAME@_INCDIR}" )
 
 check_required_components(@product@)
 
