@@ -1,12 +1,10 @@
-
 @PACKAGE_INIT@
 
 set_and_check(@PROJECT_NAME@_LIBDIR "${PACKAGE_PREFIX_DIR}/lib")
 set_and_check(@PROJECT_NAME@_INCDIR "${PACKAGE_PREFIX_DIR}/include")
-find_library(MF_FILEFORMAT NAMES MF_FileFormat PATHS "${@PROJECT_NAME@_LIBDIR}" NO_DEFAULT_PATH)
-find_library(MF_MESSAGELOGGER NAMES MF_MessageLogger PATHS "${@PROJECT_NAME@_LIBDIR}" NO_DEFAULT_PATH)
-find_library(MF_UTILITIES NAMES MF_Utilities PATHS "${@PROJECT_NAME@_LIBDIR}" NO_DEFAULT_PATH)
-include_directories( "${@PROJECT_NAME@_INCDIR}" )
+@CONFIG_FIND_LIBRARY_COMMANDS@
+include_directories( ${@PROJECT_NAME@_INCDIR} )
 
-check_required_components(@product@)
+find_package(fhiclcpp)
 
+check_required_components(@PROJECT_NAME@)
