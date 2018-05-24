@@ -1,8 +1,9 @@
 #include "fhiclcpp/ParameterSet.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
-int main()
+int
+main()
 {
-  fhicl::ParameterSet ps {};
+  fhicl::ParameterSet ps{};
   mf::StartMessageFacility(ps);
 }

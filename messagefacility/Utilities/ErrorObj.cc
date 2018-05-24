@@ -1,164 +1,280 @@
 #include "messagefacility/Utilities/ErrorObj.h"
-#include "messagefacility/Utilities/eq_nocase.h"
+// vim: set sw=2 expandtab :
 
 #include <atomic>
+#include <list>
+#include <string>
+
+using namespace std;
 
 namespace {
-  unsigned int const maxIDlength {200};
-}
 
-// ----------------------------------------------------------------------
-// Class static and class-wide parameter:
-// ----------------------------------------------------------------------
+  unsigned int const maxCategoryLength{200U};
 
-static std::atomic<int> ourSerial {0};
+} // unnamed namespace
 
-mf::ErrorObj::ErrorObj(ELseverityLevel const sev,
-                       std::string const& id,
-                       bool const verbat)
-  : verbatim{verbat}
+namespace mf {
+
+  static atomic<int> ourSerial{0};
+
+  ErrorObj::~ErrorObj() {}
+
+  ErrorObj::ErrorObj(ELseverityLevel const sev,
+                     string const& category,
+                     bool const verbatim,
+                     string const& filename,
+                     int lineNumber)
+    : serial_{}
+    , xid_{}
+    , idOverflow_{}
+    , timestamp_{0, 0}
+    , items_{}
+    , reactedTo_{false}
+    , iteration_{}
+    , oss_{}
+    , verbatim_{verbatim}
+    , filename_{filename}
+    , lineNumber_{lineNumber}
   {
-    set(sev, id);
+    set(sev, category);
   }
 
-mf::ErrorObj::ErrorObj(ErrorObj const& orig)
-  : mySerial    {orig.mySerial}
-  , myXid       (orig.myXid)
-  , myIdOverflow{orig.myIdOverflow}
-  , myTimestamp (orig.myTimestamp)
-  , myItems     {orig.myItems}
-  , myReactedTo {orig.myReactedTo}
-  , verbatim    {orig.verbatim}
+  ErrorObj::ErrorObj(ErrorObj const& orig)
+    : serial_{orig.serial_}
+    , xid_(orig.xid_)
+    , idOverflow_{orig.idOverflow_}
+    , timestamp_(orig.timestamp_)
+    , items_{orig.items_}
+    , reactedTo_{orig.reactedTo_}
+    , verbatim_{orig.verbatim_}
+    , filename_{orig.filename_}
+    , lineNumber_{orig.lineNumber_}
   {}
 
-// ----------------------------------------------------------------------
-// Accessors:
-// ----------------------------------------------------------------------
-
-int mf::ErrorObj::serial() const { return mySerial; }
-mf::ELextendedID const& mf::ErrorObj::xid() const { return myXid; }
-std::string const& mf::ErrorObj::idOverflow() const { return myIdOverflow; }
-timeval mf::ErrorObj::timestamp() const { return myTimestamp; }
-mf::ELlist_string const& mf::ErrorObj::items() const { return myItems; }
-bool mf::ErrorObj::reactedTo() const { return myReactedTo; }
-bool mf::ErrorObj::is_verbatim() const { return verbatim; }
-
-std::string const& mf::ErrorObj::context() const
-{
-  return myContext;
-}
-
-std::string mf::ErrorObj::fullText() const
-{
-  std::string result;
-  for (auto const& text : myItems)
-    result += text;
-  return result;
-}
-
-
-// ----------------------------------------------------------------------
-// Mutators:
-// ----------------------------------------------------------------------
-
-void mf::ErrorObj::setSeverity(ELseverityLevel const sev)
-{
-  myXid.setSeverity((sev <= ELzeroSeverity) ?
-                    (ELseverityLevel)ELdebug :
-                    ((sev >= ELhighestSeverity) ?
-                     (ELseverityLevel)ELsevere :
-                     sev));
-}
-
-void mf::ErrorObj::setID(std::string const& id)
-{
-  myXid.setID(std::string(id, 0, maxIDlength));
-  if (id.length() > maxIDlength) {
-    myIdOverflow = std::string(id, maxIDlength, id.length()-maxIDlength);
-  }
-}
-
-void mf::ErrorObj::setModule(std::string const& module)
-{
-  myXid.setModule(module);
-}
-
-void mf::ErrorObj::setContext(std::string const& c)
-{
-  myContext = c;
-}
-
-void mf::ErrorObj::setSubroutine(std::string const& subroutine)
-{
-  myXid.setSubroutine((subroutine[0] == ' ') ?
-                      subroutine.substr(1) :
-                      subroutine);
-}
-
-
-void mf::ErrorObj::setReactedTo(bool const r)
-{
-  myReactedTo = r;
-}
-
-void mf::ErrorObj::setHostName(std::string const& hostname)
-{
-  myXid.setHostname(hostname);
-}
-
-void mf::ErrorObj::setHostAddr(std::string const& hostaddr)
-{
-  myXid.setHostaddr(hostaddr);
-}
-
-void mf::ErrorObj::setApplication(std::string const& application )
-{
-  myXid.setApplication(application);
-}
-
-void mf::ErrorObj::setPID(long const pid)
-{
-  myXid.setPID(pid);
-}
-
-mf::ErrorObj& mf::ErrorObj::eo_emit(std::string const& s)
-{
-  if (detail::eq_nocase(s.substr(0,5), "@SUB=" ))  {
-    setSubroutine(s.substr(5));
-  }
-  else {
-    myItems.push_back(s);
+  int
+  ErrorObj::serial() const
+  {
+    return serial_;
   }
 
-  return *this;
-}
+  ELextendedID const&
+  ErrorObj::xid() const
+  {
+    return xid_;
+  }
 
-void mf::ErrorObj::clear()
-{
-  mySerial = 0;
-  myXid = {};
-  myIdOverflow.clear();
-  myTimestamp = {0,0};
-  myItems.clear();
-  myReactedTo = false;
-  myContext.clear();
-  myOs.str({});
-  verbatim = false;
-  //    decltype(*this) tmp {};
-  //    std::swap(tmp, *this);
-}
+  string const&
+  ErrorObj::idOverflow() const
+  {
+    return idOverflow_;
+  }
 
-void mf::ErrorObj::set(ELseverityLevel const sev,
-                       std::string const& id)
-{
-  gettimeofday( &myTimestamp, 0 );
-  mySerial = ++ourSerial;
+  timeval
+  ErrorObj::timestamp() const
+  {
+    return timestamp_;
+  }
 
-  setID(id);
-  setSeverity(sev);
-}
+  std::list<std::string> const&
+  ErrorObj::items() const
+  {
+    return items_;
+  }
 
-void mf::ErrorObj::setTimestamp(timeval const& t)
-{
-  myTimestamp = t;
-}
+  bool
+  ErrorObj::reactedTo() const
+  {
+    return reactedTo_;
+  }
+
+  bool
+  ErrorObj::is_verbatim() const
+  {
+    return verbatim_;
+  }
+
+  // Note: Obsolete! Remove me when user code migrated.
+  string const&
+  ErrorObj::context() const
+  {
+    return iteration_;
+  }
+
+  string const&
+  ErrorObj::iteration() const
+  {
+    return iteration_;
+  }
+
+  string
+  ErrorObj::fullText() const
+  {
+    string result;
+    for (auto const& text : items_) {
+      result += text;
+    }
+    return result;
+  }
+
+  string const&
+  ErrorObj::filename() const
+  {
+    return filename_;
+  }
+
+  int
+  ErrorObj::lineNumber() const
+  {
+    return lineNumber_;
+  }
+
+  void
+  ErrorObj::setSeverity(ELseverityLevel const sev)
+  {
+    xid_.setSeverity(
+      (sev <= ELzeroSeverity) ?
+        (ELseverityLevel)ELdebug :
+        ((sev >= ELhighestSeverity) ? (ELseverityLevel)ELsevere : sev));
+  }
+
+  void
+  ErrorObj::setID(string const& category)
+  {
+    xid_.setID(string(category, 0, maxCategoryLength));
+    if (category.length() > maxCategoryLength) {
+      idOverflow_ = string(
+        category, maxCategoryLength, category.length() - maxCategoryLength);
+    }
+  }
+
+  void
+  ErrorObj::setModule(string const& module)
+  {
+    xid_.setModule(module);
+  }
+
+  // Note: Obsolete! Remove me when user code migrated.
+  void
+  ErrorObj::setContext(string const& s)
+  {
+    iteration_ = s;
+  }
+
+  void
+  ErrorObj::setIteration(string const& s)
+  {
+    iteration_ = s;
+  }
+
+  void
+  ErrorObj::setSubroutine(string const& subroutine)
+  {
+    xid_.setSubroutine((subroutine[0] == ' ') ? subroutine.substr(1) :
+                                                subroutine);
+  }
+
+  void
+  ErrorObj::setReactedTo(bool const r)
+  {
+    reactedTo_ = r;
+  }
+
+  void
+  ErrorObj::setHostName(string const& hostname)
+  {
+    xid_.setHostname(hostname);
+  }
+
+  void
+  ErrorObj::setHostAddr(string const& hostaddr)
+  {
+    xid_.setHostaddr(hostaddr);
+  }
+
+  void
+  ErrorObj::setApplication(string const& application)
+  {
+    xid_.setApplication(application);
+  }
+
+  void
+  ErrorObj::setPID(long const pid)
+  {
+    xid_.setPID(pid);
+  }
+
+  ErrorObj&
+  ErrorObj::eo_emit(string const& s)
+  {
+    if (s.substr(0, 5) == "@SUB=") {
+      setSubroutine(s.substr(5));
+    } else {
+      items_.push_back(s);
+    }
+    return *this;
+  }
+
+  void
+  ErrorObj::clear()
+  {
+    serial_ = 0;
+    xid_ = {};
+    idOverflow_.clear();
+    timestamp_ = {0, 0};
+    items_.clear();
+    reactedTo_ = false;
+    iteration_.clear();
+    oss_.str({});
+    verbatim_ = false;
+  }
+
+  void
+  ErrorObj::set(ELseverityLevel const sev, string const& category)
+  {
+    gettimeofday(&timestamp_, 0);
+    serial_ = ++ourSerial;
+    setID(category);
+    setSeverity(sev);
+  }
+
+  void
+  ErrorObj::setTimestamp(timeval const& t)
+  {
+    timestamp_ = t;
+  }
+
+  ErrorObj&
+  ErrorObj::operator<<(std::ostream& (*f)(std::ostream&))
+  {
+    f(oss_);
+    oss_.str({});
+    return *this;
+  }
+
+  ErrorObj&
+  ErrorObj::operator<<(std::ios_base& (*f)(std::ios_base&))
+  {
+    f(oss_);
+    return *this;
+  }
+
+  // Force conversion of char arrays to string.
+  ErrorObj&
+  ErrorObj::opltlt(char const* s)
+  {
+    oss_.str({});
+    oss_ << s;
+    if (!oss_.str().empty()) {
+      eo_emit(oss_.str());
+    }
+    return *this;
+  }
+
+  // Force conversion of char arrays to string.
+  ErrorObj&
+  operator<<(ErrorObj& e, char const* s)
+  {
+    return e.opltlt(s);
+  }
+
+} // namespace mf

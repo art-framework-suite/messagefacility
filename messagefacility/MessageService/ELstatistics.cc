@@ -1,77 +1,69 @@
-//  ---------------------------------------------------------------------
-//
-// ELstatistics.cc
-//
-//  ---------------------------------------------------------------------
-
-
 #include "messagefacility/MessageService/ELstatistics.h"
+// vim: set sw=2 expandtab :
+
 #include "fhiclcpp/ParameterSet.h"
 #include "messagefacility/Utilities/ErrorObj.h"
 
 #include <fstream>
-#include <iomanip>
-#include <ios>
+#include <sstream>
+#include <string>
 
 namespace mf {
   namespace service {
 
-    //======================================================================
-    // Constructors
-    //======================================================================
+    ELstatistics::~ELstatistics() {}
 
-    ELstatistics::ELstatistics(fhicl::ParameterSet const& pset, std::ostream& osp)
-      : ELdestination{pset}
-      , termStream{osp}
+    ELstatistics::ELstatistics(Config const& config, cet::ostream_handle&& osh)
+      : ELdestination{config.elDestConfig()}, osh_{std::move(osh)}
     {}
 
-    ELstatistics::ELstatistics(fhicl::ParameterSet const& pset)
-      : ELstatistics{pset, std::cerr}
+    ELstatistics::ELstatistics(Parameters const& pset, std::ostream& osp)
+      : ELstatistics{pset(), cet::ostream_handle{osp}}
     {}
 
-    ELstatistics::ELstatistics(fhicl::ParameterSet const& pset,
-                               std::string const& fileName,
-                               bool const append)
-      : ELdestination{pset}
-      , termStream{fileName, append ? std::ios::app : std::ios::trunc}
-    {}
-
-    // ----------------------------------------------------------------------
-    // Methods invoked by the ELadministrator
-    // ----------------------------------------------------------------------
-
-    void ELstatistics::log(mf::ErrorObj& msg)
+    void
+    ELstatistics::log(ErrorObj& msg)
     {
-      if (passLogStatsThreshold(msg))
-        stats.log(msg);
+      if (msg.xid().severity() < threshold_) {
+        if (outputStatistics_) {
+          statsMap_[msg.xid()].add(summarizeContext(msg.context()), false);
+          updatedStats_ = true;
+        }
+        return;
+      }
+      if (skipMsg(msg.xid())) {
+        if (outputStatistics_) {
+          statsMap_[msg.xid()].add(summarizeContext(msg.context()), false);
+          updatedStats_ = true;
+        }
+        return;
+      }
+      msg.setReactedTo(true);
+      // The only real difference between a statistics destination
+      // and an ordinary one is here, where we make no attempt to
+      // output the message.
+      if (outputStatistics_) {
+        statsMap_[msg.xid()].add(summarizeContext(msg.context()), true);
+        updatedStats_ = true;
+      }
     }
 
-    void ELstatistics::summary(std::ostream& os, std::string const& title)
+    // Called only by MessageLoggerScribe::summarize()
+    //   Called only by MessageLogger::LogStatistics()
+    void
+    ELstatistics::summary()
     {
-      os << title << '\n' << stats.formSummary();
-      stats.updatedStats = false;
+      if (outputStatistics_ && updatedStats_) {
+        osh_ << "\n=============================================\n\n"
+             << "MessageLogger Summary\n"
+             << formSummary();
+      }
+      updatedStats_ = false;
+      if (reset_) {
+        resetMsgCounters();
+        resetLimiters();
+      }
     }
 
-    void ELstatistics::summary()
-    {
-      termStream << "\n=============================================\n\n"
-                 << "MessageLogger Summary\n"
-                 << stats.formSummary();
-      stats.updatedStats = false;
-    }
-
-
-    void ELstatistics::summary(std::string& s, std::string const& title)
-    {
-      std::ostringstream ss;
-      summary(ss, title);
-      s = ss.str();
-    }
-
-    void ELstatistics::noTerminationSummary()
-    {
-      stats.printAtTermination = false;
-    }
-
-  } // end of namespace service
-} // end of namespace mf
+  } // namespace service
+} // namespace mf

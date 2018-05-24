@@ -1,8 +1,0 @@
-process_name: TestFileDest_NoLineBreaks
-
-message : {
-   destinations : { 
-      log_noLineBreaks : { type : file  filename : "noLineBreaks.log"   noLineBreaks : true  }
-   }
-}
-

@@ -1,74 +1,60 @@
+// vim: set sw=2 expandtab :
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/make_ParameterSet.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
-#include <iostream>
-
+#include <string>
 #include <thread>
 
-using namespace mf;
+using namespace std;
+using namespace std::string_literals;
 
-void anotherLogger()
+void
+anotherLogger()
 {
-  MessageDrop::instance()->setSinglet("anotherLogger");
-
-  LogWarning("cat1 | cat2") << "Followed by a WARNING message.";
-  LogDebug("cat")           << "The debug message in the other thread";
-
+  mf::SetModuleName("anotherLogger"s);
+  mf::LogWarning("cat1|cat2"s)
+    << "A WARNING message from the anotherLogger thread.";
+  mf::LogDebug("cat1"s) << "The debug message in the anotherLogger thread";
   return;
 }
 
-int main()
+int
+main()
 {
   fhicl::ParameterSet ps;
-  std::string const psString {
-    "debugModules:[\"*\"]"
-      "statistics:[\"stats\"] "
-      "destinations : { "
-      "  console : { type : \"cout\" threshold : \"DEBUG\" } "
-      "  file : { "
-      "    type : \"file\" threshold : \"DEBUG\" "
-      "    filename : \"mylog\" "
-      "    append : false"
-      "  } "
-      "} "
-  };
-
+  string const psString{" statistics: [\"stats\"]"
+                        " destinations: {"
+                        "   console: { type: \"cout\" threshold: \"DEBUG\" }"
+                        "   file: {"
+                        "     type: \"file\" threshold: \"DEBUG\""
+                        "     filename: \"mylog\""
+                        "     append: false"
+                        "   }"
+                        " }"};
   fhicl::make_ParameterSet(psString, ps);
-
   // Start MessageFacility Service
-  StartMessageFacility(ps);
-
+  mf::StartMessageFacility(ps);
   // Set application name (use process name by default)
-  SetApplicationName("MF_Example");
-
-  // Set module name and context for the main thread
-  MessageDrop::instance()->setSinglet("MF_main");
-  SetContextIteration("pre-event");
-
+  mf::SetApplicationName("MF_Example"s);
+  // Set module name for the main thread
+  mf::SetModuleName("MF_main"s);
+  mf::SetIteration("pre-event"s);
   // Start up another logger in a separate thread
-  std::thread loggerThread(anotherLogger);
-
+  thread loggerThread(anotherLogger);
   // Issue messages with different severity levels
-  LogError("cat1|cat2") << "This is an ERROR message.";
-  LogWarning("catwarn") << "Followed by a WARNING message.";
-
-  // Switch context
-  SetContextIteration("pro-event");
-
+  mf::LogError("cat1|cat2"s) << "This is an ERROR message.";
+  mf::LogWarning("cat3"s) << "Followed by a WARNING message.";
+  // Switch iteration
+  mf::SetIteration("pro-event"s);
   // Logs
-  LogError("catError")     << "Error information.";
-  LogWarning("catWarning") << "Warning information.";
-  LogInfo("catInfo")       << "Info information.";
-  LogDebug("debug")        << "DEBUG information.";
-
-  // Thread join
+  mf::LogError("cat2"s) << "Error information.";
+  mf::LogWarning("cat3"s) << "Warning information.";
+  mf::LogInfo("cat4"s) << "Info information.";
+  mf::LogDebug("cat5"s) << "DEBUG information.";
+  // Join with logger thread
   loggerThread.join();
-
   // Log statistics
-  LogStatistics();
-
-  //sleep(2);
-
+  mf::LogStatistics();
   return 0;
 }

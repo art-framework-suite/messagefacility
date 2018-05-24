@@ -1,8 +1,0 @@
-process_name: TestFileDest_Placeholder
-
-message : {
-   destinations : { 
-      log_placeholder : { type : file  filename : "placeholder.log"  placeholder : true }
-   }
-}
-

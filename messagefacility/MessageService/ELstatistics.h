@@ -1,53 +1,64 @@
 #ifndef messagefacility_MessageService_ELstatistics_h
 #define messagefacility_MessageService_ELstatistics_h
-
-// ----------------------------------------------------------------------
-//
-// ELstatistics is a subclass of ELdestination representing the
-//              provided statistics (for summary) keeping.
-//
-// ----------------------------------------------------------------------
+// vim: set sw=2 expandtab :
 
 #include "cetlib/ostream_handle.h"
+#include "fhiclcpp/types/Atom.h"
+#include "fhiclcpp/types/ConfigurationTable.h"
+#include "fhiclcpp/types/TableFragment.h"
 #include "messagefacility/MessageService/ELdestination.h"
 #include "messagefacility/Utilities/ELextendedID.h"
-#include "messagefacility/Utilities/ELmap.h"
 
 #include <memory>
 #include <set>
 
-namespace fhicl { class ParameterSet; }
-namespace mf { class ErrorObj; }
+namespace fhicl {
+
+  class ParameterSet;
+
+} // namespace fhicl
+
+namespace mf {
+
+  class ErrorObj;
+
+} // namespace mf
 
 namespace mf {
   namespace service {
 
     class ELstatistics : public ELdestination {
+
     public:
+      struct Config {
+        fhicl::TableFragment<ELdestination::Config> elDestConfig;
+      };
 
-      ELstatistics(fhicl::ParameterSet const& pset);
-      ELstatistics(fhicl::ParameterSet const& pset, std::ostream& osp);
-      ELstatistics(fhicl::ParameterSet const& pset, std::string const& filename, bool const append);
+      using Parameters = fhicl::WrappedTable<Config>;
 
-      void log(mf::ErrorObj& msg) override;
-
-      // copy c'tor/assignment disabled
+    public:
+      ~ELstatistics();
+      ELstatistics(Parameters const&, std::ostream&);
+      ELstatistics(Config const&, cet::ostream_handle&&);
       ELstatistics(ELstatistics const&) = delete;
+      ELstatistics(ELstatistics&&) = delete;
       ELstatistics& operator=(ELstatistics const&) = delete;
+      ELstatistics& operator=(ELstatistics&&) = delete;
+
+    public:
+      void log(mf::ErrorObj&) override;
 
     private:
-
-      void summary(std::ostream& os, std::string const& title="") override;
-      void summary(std::string& s, std::string const& title="") override;
+      // Called only by MessageLoggerScribe::summarize()
+      //   Called only by MessageLogger::LogStatistics()
       void summary() override;
-      void noTerminationSummary() override;
 
-      cet::ostream_handle termStream;
-    };  // ELstatistics
+    private:
+      cet::ostream_handle osh_;
+    };
 
-  } // end of namespace service
-} // end of namespace mf
-
+  } // namespace service
+} // namespace mf
 
 #endif /* messagefacility_MessageService_ELstatistics_h */
 

@@ -1,52 +1,54 @@
 
-#include "cetlib/exception.h"
+#include "cetlib_except/exception.h"
 
+#include <iomanip>
 #include <iostream>
 #include <string>
-#include <iomanip>
 
-struct Thing : public cet::exception
-{
-  Thing(const std::string& msg):exception("Thing",msg) { }
+struct Thing : public cet::exception {
+  Thing(const std::string& msg) : exception("Thing", msg) {}
 };
 
-std::ostream& operator<<(std::ostream& os, const Thing& t)
+std::ostream&
+operator<<(std::ostream& os, const Thing& t)
 {
   os << "Thing(" << t.explain_self() << ")";
   return os;
 }
 
-void func3()
+void
+func3()
 {
   throw Thing("Data Corrupt") << " Low level error" << std::endl;
 }
 
-void func2()
+void
+func2()
 {
   func3();
 }
 
-void func1()
+void
+func1()
 {
   try {
-      func2();
+    func2();
   }
   catch (cet::exception& e) {
-     throw cet::exception("InfiniteLoop","In func2",e) << "Gave up";
+    throw cet::exception("InfiniteLoop", "In func2", e) << "Gave up";
   }
-
 }
 
-int main()
+int
+main()
 {
   try {
     func1();
   }
   catch (cet::exception& e) {
     std::cerr << "*** main caught cet::exception, output is ***\n"
-         << "(" << e.explain_self() << ")"
-         << "*** After exception output ***"
-         << std::endl;
+              << "(" << e.explain_self() << ")"
+              << "*** After exception output ***" << std::endl;
 
     std::cerr << "\nCategory name list:\n";
 
@@ -57,7 +59,6 @@ int main()
       abort();
     }
 #endif
-
   }
   return 0;
 }

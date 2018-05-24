@@ -5,27 +5,27 @@
 # ======================================================================
 
 # Get all FHiCL files
-file(GLOB testConfigFiles fhicl-files/*.fcl )
-list(REMOVE_ITEM testConfigFiles ${CMAKE_CURRENT_SOURCE_DIR}/fhicl-files/statistics_duplicateDest.fcl)
+file(GLOB testConfigFiles ${CMAKE_CURRENT_SOURCE_DIR}/fcl/*.fcl )
+list(REMOVE_ITEM testConfigFiles ${CMAKE_CURRENT_SOURCE_DIR}/fcl/statistics_duplicateDest.fcl)
 
-foreach (filename ${testConfigFiles})
+foreach(filename ${testConfigFiles})
 
   # trim directory prefixes and .fcl suffix
-  string(REGEX REPLACE "(.*/fhicl-files/)(.*)(.fcl)" "\\2" testname ${filename})
+  string(REGEX REPLACE ".*/fcl/(.*)\\.fcl" "\\1" testname ${filename})
 
-  cet_test(messagefacility_${testname}_t HANDBUILT
+  cet_test(${testname}_t HANDBUILT
     TEST_EXEC ELdestinationTester
-    TEST_ARGS -c ${filename}
+    TEST_ARGS -c ${testname}.fcl
     DATAFILES
-    ${filename}
+    fcl/${testname}.fcl
     )
 
 endforeach()
 
-cet_test(messagefacility_statistics_duplicateDest_t HANDBUILT
+cet_test(statistics_duplicateDest_t HANDBUILT
   TEST_EXEC ELdestinationTester
   TEST_ARGS -c statistics_duplicateDest.fcl
   DATAFILES
-  fhicl-files/statistics_duplicateDest.fcl
+  fcl/statistics_duplicateDest.fcl
   TEST_PROPERTIES WILL_FAIL TRUE
   )

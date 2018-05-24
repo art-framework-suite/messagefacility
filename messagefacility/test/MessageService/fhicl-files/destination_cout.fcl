@@ -1,6 +1,0 @@
-process_name: TestCoutDest
-
-message : {
-   destinations : { log : { type : cout } }
-}
-

@@ -1,5 +1,0 @@
-process_name: TestDefaultDestination
-
-message : {
-   destinations : { dest1 : {} }
-}

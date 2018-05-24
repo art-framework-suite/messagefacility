@@ -1,147 +1,233 @@
-#include "messagefacility/Utilities/ErrorObj.h"
 #include "messagefacility/Utilities/MessageFacilityMsg.h"
+// vim: set sw=2 expandtab :
+
+#include "messagefacility/Utilities/ErrorObj.h"
 #include "messagefacility/Utilities/formatTime.h"
+
+using namespace std;
 
 namespace mf {
 
-  MessageFacilityMsg::MessageFacilityMsg(ErrorObj const & errorobj)
-  : ep     ( new ErrorObj(errorobj) )
-  , empty_ ( false )
-  {
-  }
+  MessageFacilityMsg::~MessageFacilityMsg() {}
+
+  MessageFacilityMsg::MessageFacilityMsg(ErrorObj const& msg)
+    : msg_(new ErrorObj(msg)), empty_(false)
+  {}
 
   MessageFacilityMsg::MessageFacilityMsg()
-  : ep     ( new ErrorObj(ELseverityLevel("INFO"), "") )
-  , empty_ ( true )
+    : msg_(new ErrorObj(ELseverityLevel("INFO"), "")), empty_(true)
+  {}
+
+  void
+  MessageFacilityMsg::setTimestamp(timeval const& tv)
   {
-  }
-
-  MessageFacilityMsg::~MessageFacilityMsg() {
-
-  }
-
-  // Set methods
-  void MessageFacilityMsg::setTimestamp(timeval const& tv)
-  {
-    ep->setTimestamp(tv);
+    msg_->setTimestamp(tv);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setSeverity(std::string const& severity)
+  void
+  MessageFacilityMsg::setSeverity(string const& severity)
   {
-    ep->setSeverity(mf::ELseverityLevel(severity));
+    msg_->setSeverity(mf::ELseverityLevel(severity));
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setCategory(std::string const& category)
+  void
+  MessageFacilityMsg::setCategory(string const& category)
   {
-    ep->setID(category);
+    msg_->setID(category);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setHostname(std::string const& hostname)
+  void
+  MessageFacilityMsg::setHostname(string const& hostname)
   {
-    ep->setHostName(hostname);
+    msg_->setHostName(hostname);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setHostaddr(std::string const& hostaddr)
+  void
+  MessageFacilityMsg::setHostaddr(string const& hostaddr)
   {
-    ep->setHostAddr(hostaddr);
+    msg_->setHostAddr(hostaddr);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setPid(long const pid)
+  void
+  MessageFacilityMsg::setPid(long const pid)
   {
-    ep->setPID(pid);
+    msg_->setPID(pid);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setApplication(std::string const& app)
+  void
+  MessageFacilityMsg::setApplication(string const& app)
   {
-    ep->setApplication(app);
+    msg_->setApplication(app);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setModule(std::string const& module)
+  void
+  MessageFacilityMsg::setModule(string const& module)
   {
-    ep->setModule(module);
+    msg_->setModule(module);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setContext(std::string const& context)
+  void
+  MessageFacilityMsg::setContext(string const& s)
   {
-    ep->setContext(context);
+    msg_->setIteration(s);
     empty_ = false;
   }
 
-  void MessageFacilityMsg::setMessage(std::string const& file,
-                                      std::string const& line,
-                                      std::string const& message)
+  void
+  MessageFacilityMsg::setIteration(string const& s)
   {
-    *ep << " " << file << ":" << line << "\n" << message;
+    msg_->setIteration(s);
     empty_ = false;
   }
 
+  void
+  MessageFacilityMsg::setMessage(string const& file,
+                                 string const& line,
+                                 string const& message)
+  {
+    *msg_ << " " << file << ":" << line << "\n" << message;
+    empty_ = false;
+  }
 
-  // Get methods
-  bool        MessageFacilityMsg::empty()       const { return empty_; }
-  ErrorObj    MessageFacilityMsg::ErrorObject() const { return *ep; }
-  timeval     MessageFacilityMsg::timestamp()   const { return ep->timestamp(); }
-  std::string MessageFacilityMsg::timestr()     const { return mf::timestamp::legacy(ep->timestamp()); }
-  std::string MessageFacilityMsg::severity()    const { return ep->xid().severity().getInputStr(); }
-  std::string MessageFacilityMsg::category()    const { return ep->xid().id(); }
-  std::string MessageFacilityMsg::hostname()    const { return ep->xid().hostname(); }
-  std::string MessageFacilityMsg::hostaddr()    const { return ep->xid().hostaddr(); }
-  long        MessageFacilityMsg::pid()         const { return ep->xid().pid(); }
-  std::string MessageFacilityMsg::application() const { return ep->xid().application(); }
-  std::string MessageFacilityMsg::module()      const { return ep->xid().module(); }
-  std::string MessageFacilityMsg::context()     const { return ep->context(); }
+  bool
+  MessageFacilityMsg::empty() const
+  {
+    return empty_;
+  }
 
-  std::string MessageFacilityMsg::file() const {
+  ErrorObj
+  MessageFacilityMsg::ErrorObject() const
+  {
+    return *msg_;
+  }
 
+  timeval
+  MessageFacilityMsg::timestamp() const
+  {
+    return msg_->timestamp();
+  }
+
+  // FIXME: The get_time function is gone!
+  string
+  MessageFacilityMsg::timestr() const
+  {
+    return mf::timestamp::Legacy::get_time(msg_->timestamp());
+  }
+
+  string
+  MessageFacilityMsg::severity() const
+  {
+    return msg_->xid().severity().getInputStr();
+  }
+
+  string
+  MessageFacilityMsg::category() const
+  {
+    return msg_->xid().id();
+  }
+
+  string
+  MessageFacilityMsg::hostname() const
+  {
+    return msg_->xid().hostname();
+  }
+
+  string
+  MessageFacilityMsg::hostaddr() const
+  {
+    return msg_->xid().hostaddr();
+  }
+
+  long
+  MessageFacilityMsg::pid() const
+  {
+    return msg_->xid().pid();
+  }
+
+  string
+  MessageFacilityMsg::application() const
+  {
+    return msg_->xid().application();
+  }
+
+  string
+  MessageFacilityMsg::module() const
+  {
+    return msg_->xid().module();
+  }
+
+  string
+  MessageFacilityMsg::context() const
+  {
+    return msg_->iteration();
+  }
+
+  string
+  MessageFacilityMsg::iteration() const
+  {
+    return msg_->iteration();
+  }
+
+  // FIXME: We don't put the file in the items any more!
+  string
+  MessageFacilityMsg::file() const
+  {
     int idx = 0;
-    std::list<std::string>::const_iterator it = ep->items().begin();
-
-    for( ; it != ep->items().end(); ++it ) {
+    for (list<string>::const_iterator it = msg_->items().begin();
+         it != msg_->items().end();
+         ++it) {
       ++idx;
-      if( idx == 2 )  return *it;
+      if (idx == 2) {
+        return *it;
+      }
     }
-
     return "";
   }
 
-  long MessageFacilityMsg::line() const {
-
+  // FIXME: We don't put the line in the items any more!
+  long
+  MessageFacilityMsg::line() const
+  {
     int idx = 0;
     int line = 0;
-    std::list<std::string>::const_iterator it = ep->items().begin();
-
-    for( ; it != ep->items().end(); ++it ) {
+    for (list<string>::const_iterator it = msg_->items().begin();
+         it != msg_->items().end();
+         ++it) {
       ++idx;
-
-      if( idx == 4 ) {
-        std::istringstream ss(*it);
-        if( ss >> line )        return line;
-        else                            return 0;
+      if (idx == 4) {
+        istringstream ss(*it);
+        if (ss >> line) {
+          return line;
+        }
+        return 0;
       }
     }
-
     return 0;
   }
 
-  std::string MessageFacilityMsg::message() const {
-
+  // FIXME: We don't put the file, line in the items any more!
+  string
+  MessageFacilityMsg::message() const
+  {
     int idx = 0;
-    std::string msg;
-    std::list<std::string>::const_iterator it = ep->items().begin();
-
-    for( ; it != ep->items().end(); ++it ) {
-      ++ idx;
-      if( idx > 5 )   msg += *it;
+    string msg;
+    for (list<string>::const_iterator it = msg_->items().begin();
+         it != msg_->items().end();
+         ++it) {
+      ++idx;
+      if (idx > 5) {
+        msg += *it;
+      }
     }
-
     return msg;
   }
 
-}
+} // namespace mf

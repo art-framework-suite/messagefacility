@@ -1,8 +1,0 @@
-process_name: TestFileDest_NoTimeStamps
-
-message : {
-   destinations : { 
-      log_noTimeStamps : { type : file  filename : "noTimeStamps.log"  noTimeStamps : true }
-   }
-}
-
