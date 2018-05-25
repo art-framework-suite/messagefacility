@@ -15,9 +15,13 @@
 #  make install
 #  make package (builds distribution tarfile)
 
-cmake_minimum_required( VERSION 3.2 )
+# Required to keep CMake happy.
+cmake_minimum_required(VERSION ${CMAKE_VERSION} FATAL_ERROR)
+# Actual version requirement.
+cmake_policy(VERSION 3.4)
 
-project(messagefacility VERSION 2.00.02)
+# Project information.
+project(messagefacility VERSION 2.02.02 LANGUAGES CXX)
 
 # cetmodules contains our cmake modules
 find_package(cetmodules REQUIRED)
@@ -36,16 +40,17 @@ cet_report_compiler_flags()
 
 # these are minimum required versions, not the actual product versions
 # find_ups_product defines variables for external libraries and executables
-find_ups_product(cetlib_except v1_00_00)
-find_ups_product(cetlib v2_00_00)
-find_ups_product(fhiclcpp v2_17_00)
-find_ups_product(sqlite v3_08_05_00 )
-find_ups_product(hep_concurrency)
-find_ups_boost(v1_50_0)
-find_ups_product(tbb)
+find_package(cetlib_except REQUIRED)
+find_package(cetlib REQUIRED)
+find_package(fhiclcpp REQUIRED)
+find_package(hep_concurrency REQUIRED)
+find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
+find_package(TBB COMPONENTS tbb REQUIRED)
+find_package(Catch 2.0.0)
+set(TBB "TBB::tbb")
 
 # SQLite
-cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH)
+find_library(SQLITE3 NAMES sqlite3 REQUIRED)
 
 # The environment has been established, now generate the Makefiles.
 
@@ -53,7 +58,3 @@ add_subdirectory(messagefacility)
 add_subdirectory(perllib)
 add_subdirectory(xcompile)
 add_subdirectory(ups)
-
-# This step enables building the package tarball
-# packaging utility
-#include(UseCPack)
