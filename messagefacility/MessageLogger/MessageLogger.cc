@@ -5,7 +5,7 @@
 #include "cetlib/HorizontalRule.h"
 #include "cetlib/container_algorithms.h"
 #include "cetlib/exempt_ptr.h"
-#include "cetlib/os_libpath.h"
+#include "cetlib/plugin_libpath.h"
 #include "cetlib/propagate_const.h"
 #include "cetlib/trim.h"
 #include "fhiclcpp/ParameterSet.h"
@@ -69,7 +69,7 @@ namespace mf {
       if (getenv("MF_PLUGIN_PATH") != nullptr) {
         return cet::search_path{"MF_PLUGIN_PATH"};
       }
-      return cet::search_path{cet::os_libpath()};
+      return cet::search_path{cet::plugin_libpath(), std::nothrow};
     }
 
     cet::BasicPluginFactory pluginFactory_{getPluginPath(), "mfPlugin"};
