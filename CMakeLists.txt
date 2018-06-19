@@ -46,7 +46,7 @@ find_package(fhiclcpp REQUIRED)
 find_package(hep_concurrency REQUIRED)
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
 find_package(TBB COMPONENTS tbb REQUIRED)
-find_package(Catch 2.0.0)
+find_package(Catch2 2.0.0 REQUIRED)
 set(TBB "TBB::tbb")
 
 # SQLite
