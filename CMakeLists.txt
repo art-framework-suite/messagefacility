@@ -37,9 +37,6 @@ cet_set_compiler_flags(DIAGS VIGILANT
   )
 cet_report_compiler_flags()
 
-
-# these are minimum required versions, not the actual product versions
-# find_ups_product defines variables for external libraries and executables
 find_package(cetlib_except REQUIRED)
 find_package(cetlib REQUIRED)
 find_package(fhiclcpp REQUIRED)
