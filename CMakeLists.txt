@@ -1,10 +1,9 @@
 #
-#  CMakeLists.txt
+#  messagefacility/CMakeLists.txt
 #  -------------------------------------------------------------------
 #
 #  CMake build file for project MessageFacility
 #
-# Create a build directory and an install direcotory which are outside the source code directory
 #  cd .../path/to/build/directory
 #  source .../path/to/source/code/setup_for_development
 #  cmake [-DCMAKE_INSTALL_PREFIX=/install/path]
@@ -14,10 +13,12 @@
 #  make test
 #  make install
 #  make package (builds distribution tarfile)
+# ======================================================================
 
-cmake_minimum_required (VERSION 3.11) # use cmake 3.11 or later
+cmake_minimum_required(VERSION 3.11) # use cmake 3.11 or later
 
 project(messagefacility)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # cetbuildtools contains our cmake modules
 find_package(cetbuildtools REQUIRED)
@@ -62,28 +63,43 @@ endif()
 
 cet_report_compiler_flags()
 
-
 # these are minimum required versions, not the actual product versions
-# find_ups_product defines variables for external libraries and executables
 find_ups_product(cetbuildtools v4_14_01)
 find_ups_product(cetlib_except v1_00_00)
 find_ups_product(cetlib v2_00_00)
+find_ups_product(python v3_7_2)
 find_ups_product(fhiclcpp v2_17_00)
 find_ups_product(sqlite v3_08_05_00 )
 find_ups_product(hep_concurrency)
 find_ups_boost(v1_50_0)
 
+# ----------------------------------------------------------------------
+# Python stuff
+
+#cet_find_library(PYTHON NAMES python2.7 PATHS ENV PYTHON_LIB NO_DEFAULT_PATH)
+cet_find_library(PYTHON NAMES python3.7 PATHS ENV PYTHON_LIB NO_DEFAULT_PATH)
+
+# ----------------------------------------------------------------------
 # SQLite
 cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH)
 
-# The environment has been established, now generate the Makefiles.
 
-add_subdirectory(messagefacility)
+
+
+# ----------------------------------------------------------------------
+# Describe source tree layout:
+
+add_subdirectory(messagefacility) # source
 add_subdirectory(perllib)
 add_subdirectory(xcompile)
 add_subdirectory(tools/migration)
-add_subdirectory(ups)
+add_subdirectory(ups) # table and config files
 
-# This step enables building the package tarball
-# packaging utility
+# ----------------------------------------------------------------------
+# Documentation generation:
+#find_package(Sphinx REQUIRED)
+add_subdirectory(docs)
+
+# ----------------------------------------------------------------------
+# Packaging utility
 include(UseCPack)
