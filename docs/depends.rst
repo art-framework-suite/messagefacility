@@ -1,5 +1,5 @@
-|depends| depends
-=================
+|release| depends on
+====================
 
 | `(internal link): fhiclcpp v4_09_01 <../../fhiclcpp/v4_09_01/index.html>`_
 | `(internal link): hep_concurrency v1_03_02 <../../hep_concurrency/v1_03_02/index.html>`_
