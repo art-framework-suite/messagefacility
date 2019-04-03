@@ -9,9 +9,9 @@
 .. toctree::
    :maxdepth: 2
 
-   Release notes<releaseNotes>
-
-   Depends on<depends>
+* `Release notes <releaseNotes.html>`_
+ 
+* `Depends on <depends.html>`_
 
 The messagefacility package is part of the `art suite <../../art/v3_02_01/index.html>`_.
 
@@ -22,13 +22,14 @@ User-level links
 | `Using MessageFacility <user_links/usingMF.html>`_
 | `Tutorial for MessageFacility v1.2 Config <user_links/Tutorial_MF_v12_Config.html>`_
 
-Developer links and notes
--------------------------
-- 1
-- 2
-- 3
-- 4
-- 5
-- 6
-- 7
-
+..
+    Developer links and notes
+    -------------------------
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    
