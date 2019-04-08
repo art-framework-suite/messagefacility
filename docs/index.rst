@@ -19,8 +19,8 @@ The messagefacility package is part of the `art suite <../../art/v3_02_01/index.
 User-level links
 ----------------
 
-| `Using MessageFacility <user_links/usingMF.html>`_
-| `Tutorial for MessageFacility v1.2 Config <user_links/Tutorial_MF_v12_Config.html>`_
+* `Using MessageFacility <user_links/usingMF.html>`_
+* `Tutorial for MessageFacility v1.2 Config <user_links/Tutorial_MF_v12_Config.html>`_
 
 ..
     Developer links and notes

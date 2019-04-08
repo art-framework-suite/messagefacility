@@ -199,6 +199,12 @@ rst_epilog = """
 .. |release| replace:: *{projname}* {versionnum}
 """.format(projname = project, versionnum = release)
 
+#rst_prolog = "\n.. include:: " + src + "/" + project + "/docs/_static/special.rst\n"
+#rst_prolog = "\n.. include:: user_links/.special.rst\n"
+#prolog_link = src + '/' + project + '/docs/_static/special.rst'
+#rst_prolog = "\n.. include:: " + prolog_link + "\n" 
+rst_prolog = "\n.. include:: .special.rst\n"
+
 
 # Maybe more intersphinx stuff: but also just messing around w/ executable stuff
 #print("+++++++++++++++++++++++\n\n\n\n\n")
@@ -232,10 +238,10 @@ with open(src+'/'+project+'/docs/depends.rst', 'w+') as deps_page:
       #print("\tthe version is: ", pkg[1])
       #deps_page.write('\n| `(internal link): '+pkg[0]+' <'+pkg_path+'/index.html>`_')
       #deps_page.write('\n| `(internal link): '+pkg[0]+' '+pkg[1]+' <../../'+pkg[0]+'/index.html>`_')
-      deps_page.write('\n| `(internal link): '+pkg[0]+' '+pkg[1]+' <../../'+pkg[0]+'/'+pkg[1]+'/index.html>`_')
+      deps_page.write('\n* `(internal link): '+pkg[0]+' '+pkg[1]+' <../../'+pkg[0]+'/'+pkg[1]+'/index.html>`_')
     else:
       #print("this is not a directory: ", html+'/'+pkg[0])
-      deps_page.write('\n| (external link): '+pkg[0]+' '+pkg[1])
+      deps_page.write('\n* (external link): '+pkg[0]+' '+pkg[1])
 
 #print("+++++++++++++++++++++++\n\n\n\n\n")
 
