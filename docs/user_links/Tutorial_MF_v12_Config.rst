@@ -1,3 +1,5 @@
+:orphan:
+
 Tutorial for MessageFacility v1.2 Config
 ========================================
 
@@ -27,7 +29,7 @@ There are four types of values allowed in the configuration language,  (STYLE BU
     * valid booleans: :blue:`true`, and :blue:`false`
     * valid float numbers: :blue:`0.5, 2.0, 120., 012e021`, etc
     * strings must be double quoted: "hello world!"(STRIKETHROUGH)
-    * strings can be double quoted: :gren:`"hello world!"`
+    * strings can be double quoted: :green:`"hello world!"`
     * strings can be single quoted: :green:`'hello world!'`
     * strings can even be unquoted as long as it starts with an alphabetic and contains no spaces or breaks: :green:`hello`
 #. *Vectors* of any types 
@@ -326,9 +328,7 @@ Now if we put together those reserved parameters into a configuration file, and 
         }
     }
 
-* The following is a .cfg file appropriate for a job that will run code instrumented with many LogDebug messages. 
-This hypothetical user cares only about those LogDebug messages in the category interestingToMe and, in this file, 
-prefers not to see any other LogDebug or LogInfo messages.::
+* The following is a .cfg file appropriate for a job that will run code instrumented with many LogDebug messages. This hypothetical user cares only about those LogDebug messages in the category interestingToMe and, in this file, prefers not to see any other LogDebug or LogInfo messages.::
 
     debugModules : [ "*" ]
     
@@ -343,10 +343,7 @@ prefers not to see any other LogDebug or LogInfo messages.::
     }
 
 
-* The following is an example .cfg file, setting up some destinations, 
-and specifying some choices for thresholds, 
-and for limits and timespans applicable to severities, 
-to specific message categories, and to all non-specified (default) message categroies'.
+* The following is an example .cfg file, setting up some destinations, and specifying some choices for thresholds, and for limits and timespans applicable to severities, to specific message categories, and to all non-specified (default) message categroies'.
 
 
 

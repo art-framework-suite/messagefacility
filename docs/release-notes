@@ -367,8 +367,10 @@ sub print_series_notes {
 sub print_series_prolog {
   my ($package, $prev, $this_series) = @_;
   print <<EOF;
+:orphan:
+
 *$package* series $this_series
-=====================
+=============================
 
 EOF
 
@@ -497,7 +499,7 @@ sub print_package_notes {
       #vpage($version),
       $version,
       tag_date($package, prod_version($version));
-  printf "-------------------";
+  printf "------------------------------------";
 
   my %suites = references_for_all_suites($package, $version);
   print "\n" if (scalar %suites);

@@ -1,5 +1,7 @@
+:orphan:
+
 *messagefacility* series 2.04
-=====================
+=============================
 
 
 .. Optional description of series
