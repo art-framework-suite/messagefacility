@@ -67,7 +67,7 @@ cet_report_compiler_flags()
 find_ups_product(cetbuildtools v4_14_01)
 find_ups_product(cetlib_except v1_00_00)
 find_ups_product(cetlib v2_00_00)
-find_ups_product(python v3_7_2)
+#find_ups_product(python v3_7_2)
 find_ups_product(fhiclcpp v2_17_00)
 find_ups_product(sqlite v3_08_05_00 )
 find_ups_product(hep_concurrency)
@@ -98,7 +98,11 @@ add_subdirectory(ups) # table and config files
 # ----------------------------------------------------------------------
 # Documentation generation:
 #find_package(Sphinx REQUIRED)
-add_subdirectory(docs)
+if(BUILD_DOCS)
+    add_subdirectory(docs)
+else()
+    message("Not going to build documentation because variable BUILD_DOCS was not set..")
+endif()
 
 # ----------------------------------------------------------------------
 # Packaging utility

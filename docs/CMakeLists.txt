@@ -1,4 +1,5 @@
 find_package(Sphinx REQUIRED)
+find_ups_product(python)# v3_7_2)
  
 if(NOT DEFINED SPHINX_THEME)
     set(SPHINX_THEME default)
@@ -66,6 +67,7 @@ if(EXISTS "${TOP_DOCS_DIR}")
     #message("messagefacility dir is here")
     string(TOUPPER ${PROJECT_NAME} ENV_PROJ_NAME)
     set(VERSION_DOCS_DIR "${PROJ_DOCS_DIR}/$ENV{${ENV_PROJ_NAME}_VERSION}")
+    set(VERSION_NUMBER $ENV{${ENV_PROJ_NAME}_VERSION})
     #message("looking for.. ${DUMB_TEMP_VAR}")
     #if(EXISTS "$ENV{MRB_TOP}/all_docs/${PROJECT_NAME}/$ENV{${ENV_PROJ_NAME}_VERSION}")
 
