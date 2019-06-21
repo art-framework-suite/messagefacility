@@ -10,8 +10,8 @@ cet_make_exec(ELdestinationTester
     ELdestinationTester.cc
   LIBRARIES
     MF_MessageLogger
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    Boost::filesystem
+    Boost::program_options
 )
 
 cet_test(Presence_init_t
@@ -24,8 +24,8 @@ cet_test(WildcardDebug_t
   LIBRARIES
     MF_MessageLogger
     fhiclcpp
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    Boost::filesystem
+    Boost::program_options
   DATAFILES
     fcl/WildcardDebug_t.fcl
   TEST_ARGS
@@ -42,7 +42,7 @@ cet_make_exec(mfexample
   )
 
 basic_plugin(Issue17457TestDestination mfPlugin
-  MF_MessageLogger fhiclcpp ${Boost_FILESYSTEM_LIBRARY}
+  MF_MessageLogger fhiclcpp Boost::filesystem
   NO_INSTALL
   )
 
