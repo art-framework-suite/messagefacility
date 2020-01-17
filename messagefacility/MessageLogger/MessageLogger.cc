@@ -19,7 +19,7 @@
 #include "messagefacility/MessageService/ELostreamOutput.h"
 #include "messagefacility/Utilities/ELseverityLevel.h"
 #include "messagefacility/Utilities/ErrorObj.h"
-#include "messagefacility/Utilities/bold_fontify.h"
+#include "cetlib/bold_fontify.h"
 #include "messagefacility/Utilities/exception.h"
 
 #include <algorithm>
@@ -336,7 +336,7 @@ namespace mf {
         }
         catch (fhicl::detail::validationException const& e) {
           string msg{"Configuration error for destination: " +
-                     detail::bold_fontify(psetname) + "\n\n"};
+                     cet::bold_fontify(psetname) + "\n\n"};
           msg += e.what();
           config_errors.push_back(move(msg));
         }
@@ -593,7 +593,7 @@ namespace mf {
     }
     catch (fhicl::detail::validationException const& e) {
       string msg{"\nConfiguration error for destination: " +
-                 detail::bold_fontify("cerr_early") + "\n\n"};
+                 cet::bold_fontify("cerr_early") + "\n\n"};
       msg += e.what();
       throw Exception(errors::Configuration) << msg;
     }

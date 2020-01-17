@@ -10,7 +10,7 @@
 #include "fhiclcpp/types/TableFragment.h"
 #include "messagefacility/Utilities/ELextendedID.h"
 #include "messagefacility/Utilities/ErrorObj.h"
-#include "messagefacility/Utilities/bold_fontify.h"
+#include "cetlib/bold_fontify.h"
 
 #include <bitset>
 #include <cstddef>
@@ -318,7 +318,7 @@ Category parameters
                            default_params().timespan();
     }
     catch (fhicl::detail::validationException const& e) {
-      string msg{"Category: "s + detail::bold_fontify("default"s) + "\n\n"s};
+      string msg{"Category: "s + cet::bold_fontify("default"s) + "\n\n"s};
       msg += e.what();
       configuration_errors.push_back(move(msg));
     }
@@ -334,7 +334,7 @@ Category parameters
           cats_pset.get<fhicl::ParameterSet>(category));
       }
       catch (fhicl::detail::validationException const& e) {
-        string msg{"Category: " + detail::bold_fontify(category) + "\n\n"};
+        string msg{"Category: " + cet::bold_fontify(category) + "\n\n"};
         msg += e.what();
         configuration_errors.push_back(move(msg));
       }
