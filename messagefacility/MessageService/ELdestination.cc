@@ -2,6 +2,7 @@
 // vim: set sw=2 expandtab :
 
 #include "cetlib/PluginTypeDeducer.h"
+#include "cetlib/bold_fontify.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/types/Atom.h"
 #include "fhiclcpp/types/ConfigurationTable.h"
@@ -10,7 +11,6 @@
 #include "fhiclcpp/types/TableFragment.h"
 #include "messagefacility/Utilities/ELextendedID.h"
 #include "messagefacility/Utilities/ErrorObj.h"
-#include "cetlib/bold_fontify.h"
 
 #include <bitset>
 #include <cstddef>
