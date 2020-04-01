@@ -19,4 +19,3 @@ basic_plugin(cerr mfStatsPlugin ${mf_plugin_libraries})
 basic_plugin(file mfStatsPlugin ${mf_plugin_libraries})
 
 install_headers()
-install_source()

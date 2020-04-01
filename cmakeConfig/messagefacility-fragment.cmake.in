@@ -1,0 +1,3 @@
+find_package(cetlib_except REQUIRED)
+find_package(cetlib REQUIRED)
+find_package(fhiclcpp REQUIRED)
