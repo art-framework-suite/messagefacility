@@ -32,7 +32,6 @@ cet_set_compiler_flags(DIAGS VIGILANT
   WERROR
   NO_UNDEFINED
   EXTRA_FLAGS -pedantic
-  EXTRA_CXX_FLAGS -Wnon-virtual-dtor -Wdelete-non-virtual-dtor
   )
 
 if($ENV{CET_SANITIZE_ADDRESS})
@@ -66,17 +65,12 @@ endif()
 cet_report_compiler_flags(REPORT_THRESHOLD VERBOSE)
 
 
-# these are minimum required versions, not the actual product versions
-# find_ups_product defines variables for external libraries and executables ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
-find_ups_product(cetlib_except) ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
-find_ups_product(cetlib v3_00_00) ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
-find_ups_product(fhiclcpp v4_00_00) ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
-find_ups_product(sqlite v3_08_05_00 ) ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
-find_ups_product(hep_concurrency) ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
-find_ups_boost(BOOST_TARGETS v1_50_0)
-
-# SQLite
-cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH) ### MIGRATE-ACTION-RECOMMENDED: use of ENV ... may be UPS-dependent ### MIGRATE-ACTION-RECOMMENDED: use cet_find_package() with target semantics for linking
+cet_find_package(cetlib_except REQUIRED)
+cet_find_package(cetlib REQUIRED)
+cet_find_package(fhiclcpp REQUIRED)
+cet_find_package(SQLite3 REQUIRED)
+cet_find_package(hep_concurrency REQUIRED)
+cet_find_package(Boost REQUIRED)
 
 # The environment has been established, now generate the Makefiles.
 

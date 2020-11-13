@@ -13,11 +13,9 @@ cet_make_library(
     Utilities/ELseverityLevel.cc
     Utilities/ErrorObj.cc
     Utilities/exception.cc
-  LIBRARIES
-    cetlib
-    cetlib_except
-    fhiclcpp
-    hep_concurrency)
+  LIBRARIES PRIVATE
+    cetlib::cetlib
+    fhiclcpp::fhiclcpp)
 
 add_subdirectory(MessageLogger)
 add_subdirectory(MessageService)
