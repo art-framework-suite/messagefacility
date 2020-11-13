@@ -1,4 +1,4 @@
-parent messagefacility v2_06_01
+parent messagefacility v2_06_02
 defaultqual e19
 #
 fcldir -
@@ -6,7 +6,7 @@ perllib  product_dir
 #
 # define product/version pairs
 product         version		<format=2>
-fhiclcpp        v4_11_01
+fhiclcpp        v4_11_02
 hep_concurrency v1_04_01
 
 cetbuildtools	v7_15_01	-	only_for_build
