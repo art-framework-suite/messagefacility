@@ -70,7 +70,7 @@ cet_find_package(cetlib REQUIRED)
 cet_find_package(fhiclcpp REQUIRED)
 cet_find_package(SQLite3 REQUIRED)
 cet_find_package(hep_concurrency REQUIRED)
-cet_find_package(Boost REQUIRED)
+cet_find_package(Boost COMPONENTS filesystem REQUIRED)
 
 # The environment has been established, now generate the Makefiles.
 

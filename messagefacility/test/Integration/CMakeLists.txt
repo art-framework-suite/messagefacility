@@ -5,9 +5,9 @@
 # ======================================================================
 include(BasicPlugin)
 
+cet_find_package(Boost COMPONENTS program_options REQUIRED PRIVATE)
+
 cet_make_exec(NAME ELdestinationTester
-              SOURCE
-                ELdestinationTester.cc
               LIBRARIES PRIVATE
                 MF_MessageLogger
                 fhiclcpp::fhiclcpp
