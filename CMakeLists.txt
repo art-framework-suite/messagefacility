@@ -16,10 +16,6 @@
 #  make package (builds distribution tarfile)
 cmake_minimum_required(VERSION 3.18.2 FATAL_ERROR)
 
-cmake_policy(VERSION 3.14)
-# Policy CMP0096 must be set to NEW to preserve leading zeros in the
-# VERSION set by project().
-cmake_policy(SET CMP0096 NEW)
 find_package(cetmodules 2.04.00 REQUIRED)
 project(messagefacility VERSION 2.07.02 LANGUAGES CXX)
 
