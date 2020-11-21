@@ -32,7 +32,7 @@ basic_plugin(Issue17457TestDestination mfPlugin
              Boost::filesystem
              NO_INSTALL)
 
-foreach (N 01 02) # 03 04 05)
+foreach (N IN ITEMS 01 02) # 03 04 05)
   set(test_stem Issue17457_${N})
   cet_test(${test_stem}_t HANDBUILT
            TEST_EXEC ELdestinationTester
