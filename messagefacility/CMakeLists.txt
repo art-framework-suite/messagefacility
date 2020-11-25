@@ -15,11 +15,13 @@ cet_make_library(
     Utilities/exception.cc
   LIBRARIES PRIVATE
     cetlib::cetlib
-    fhiclcpp::fhiclcpp)
+    fhiclcpp::fhiclcpp
+)
 
 add_subdirectory(MessageLogger)
 add_subdirectory(MessageService)
 add_subdirectory(Utilities)
 add_subdirectory(plugins)
+
 # Testing
 add_subdirectory(test)

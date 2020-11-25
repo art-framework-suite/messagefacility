@@ -10,7 +10,7 @@ basic_plugin(cout mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries})
 basic_plugin(cerr mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries})
 basic_plugin(file mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries})
 basic_plugin(syslog mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries})
-basic_plugin(sqlite mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries} ${SQLITE3})
+basic_plugin(sqlite mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries} SQLite::SQLite3)
 basic_plugin(stringstream mfPlugin LIBRARIES PRIVATE ${mf_plugin_libraries})
 
 # statistics destination plugins
