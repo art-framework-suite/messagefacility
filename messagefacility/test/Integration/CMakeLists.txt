@@ -5,32 +5,34 @@
 # ======================================================================
 include(BasicPlugin)
 
-cet_make_exec(ELdestinationTester
-              SOURCE
-                ELdestinationTester.cc
-              LIBRARIES
+cet_find_package(Boost COMPONENTS program_options REQUIRED PRIVATE)
+
+cet_make_exec(NAME ELdestinationTester
+              LIBRARIES PRIVATE
                 MF_MessageLogger
+                fhiclcpp::fhiclcpp
                 Boost::filesystem
                 Boost::program_options)
 
-cet_test(Presence_init_t LIBRARIES MF_MessageLogger fhiclcpp)
+cet_test(Presence_init_t LIBRARIES PRIVATE MF_MessageLogger fhiclcpp::fhiclcpp)
 
 cet_test(WildcardDebug_t
-         LIBRARIES MF_MessageLogger
-                   fhiclcpp
-                   Boost::filesystem
-                   Boost::program_options
+         LIBRARIES PRIVATE
+           MF_MessageLogger
+           fhiclcpp::fhiclcpp
+           Boost::program_options
          DATAFILES fcl/WildcardDebug_t.fcl
          TEST_ARGS -c WildcardDebug_t.fcl
          REF ${CMAKE_CURRENT_SOURCE_DIR}/WildcardDebug_t-ref.txt)
 
 basic_plugin(Issue17457TestDestination mfPlugin
+             LIBRARIES PRIVATE
              MF_MessageLogger
-             fhiclcpp
+             fhiclcpp::fhiclcpp
              Boost::filesystem
              NO_INSTALL)
 
-foreach (N 01 02) # 03 04 05)
+foreach (N IN ITEMS 01 02) # 03 04 05)
   set(test_stem Issue17457_${N})
   cet_test(${test_stem}_t HANDBUILT
            TEST_EXEC ELdestinationTester
