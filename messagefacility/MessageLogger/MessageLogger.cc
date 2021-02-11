@@ -13,7 +13,6 @@
 #include "fhiclcpp/make_ParameterSet.h"
 #include "fhiclcpp/types/OptionalDelegatedParameter.h"
 #include "fhiclcpp/types/detail/validationException.h"
-#include "hep_concurrency/RecursiveMutex.h"
 #include "messagefacility/MessageLogger/MFConfig.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/MessageService/ELdestination.h"
@@ -31,7 +30,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
-
+#include <mutex>
 #include <sstream>
 #include <string>
 #include <type_traits>
@@ -45,7 +44,6 @@
 
 using namespace std;
 using namespace std::string_literals;
-using namespace hep::concurrency;
 
 namespace {
   enum class destination_kind { ordinary, statistics };
@@ -72,7 +70,7 @@ namespace mf {
     bool cleanSlateConfiguration_{true};
     atomic<bool> purgeMode_{false};
     atomic<int> count_{0};
-    RecursiveMutex msgMutex_{"MessageLogger::msgMutex_"};
+    std::recursive_mutex msgMutex_{};
     string hostname_;
     string hostaddr_;
     string application_;
@@ -384,7 +382,7 @@ namespace mf {
         delete msg;
         return;
       }
-      RecursiveMutexSentry sentry{msgMutex_, __func__};
+      std::lock_guard sentry{msgMutex_};
       // Ok, no other thread active, process the current message.
       try {
         unique_ptr<ErrorObj> msgHolder{msg};
