@@ -2,9 +2,8 @@
 #define messagefacility_plugins_stringstream_h
 // vim: set sw=2 expandtab :
 
-#include "cetlib/ostream_handle.h"
-
 #include <sstream>
+#include <string>
 
 namespace mf {
 

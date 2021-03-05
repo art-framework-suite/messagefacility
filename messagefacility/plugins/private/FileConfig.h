@@ -1,12 +1,12 @@
-#ifndef messagefacility_plugins_FileConfig_h
-#define messagefacility_plugins_FileConfig_h
+#ifndef messagefacility_plugins_private_FileConfig_h
+#define messagefacility_plugins_private_FileConfig_h
 // vim: set sw=2 expandtab :
 
 #include "fhiclcpp/types/Atom.h"
 
 #include <string>
 
-namespace mfplugins {
+namespace mf::priv {
 
   struct FileConfig {
 
@@ -20,7 +20,7 @@ namespace mfplugins {
 
 } // namespace mfplugins
 
-#endif /* messagefacility_plugins_FileConfig_h */
+#endif /* messagefacility_plugins_private_FileConfig_h */
 
 // Local variables:
 // mode: c++

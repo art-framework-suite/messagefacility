@@ -1,14 +1,12 @@
 // vim: set sw=2 expandtab :
 
-#include "cetlib/PluginTypeDeducer.h"
-#include "cetlib/ProvideFilePathMacro.h"
-#include "cetlib/ProvideMakePluginMacros.h"
+#include "messagefacility/plugins/mfPlugin.h"
+
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/types/AllowedConfigurationMacro.h"
 #include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/TableFragment.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
-#include "messagefacility/MessageService/ELdestination.h"
 #include "messagefacility/Utilities/ELseverityLevel.h"
 #include "messagefacility/Utilities/exception.h"
 
@@ -112,12 +110,10 @@ namespace mfplugins {
 
 } // namespace mfplugins
 
-MAKE_PLUGIN_START(auto, string const&, fhicl::ParameterSet const& pset)
+MAKE_MFPLUGIN_START(,pset)
 {
   return make_unique<mfplugins::ELsyslog>(pset);
 }
 MAKE_PLUGIN_END
 
-CET_PROVIDE_FILE_PATH()
-DEFINE_BASIC_PLUGINTYPE_FUNC(mf::service::ELdestination)
 FHICL_PROVIDE_ALLOWED_CONFIGURATION(mfplugins::ELsyslog)

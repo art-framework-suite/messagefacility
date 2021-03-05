@@ -1,10 +1,11 @@
-cet_find_package(Catch2 REQUIRED PRIVATE)
-cet_make_library(LIBRARY_NAME MF_catch_main STATIC SOURCE catch_main.cc
-  LIBRARIES PRIVATE Catch2::Catch2 fhiclcpp::fhiclcpp)
-add_custom_command(TARGET MF_catch_main POST_BUILD
-  COMMAND strip -S $<TARGET_FILE:MF_catch_main>
-  COMMENT "Stripping messagefacility-Catch2 main() library"
-  )
+cet_make_library(LIBRARY_NAME MF_catch_main STATIC STRIP_LIBS
+  SOURCE catch_main.cc
+  LIBRARIES PRIVATE fhiclcpp::fhiclcpp)
+# FIXME: Not a link because we don't want to force users of
+#        messagefacility to have to have Catch2 available if they're not
+#        using MF_catch_main - need to get components working.
+target_include_directories(MF_catch_main
+  PRIVATE "$<TARGET_PROPERTY:Catch2::Catch2,INTERFACE_INCLUDE_DIRECTORIES>")
 
 # install files
 install_headers()

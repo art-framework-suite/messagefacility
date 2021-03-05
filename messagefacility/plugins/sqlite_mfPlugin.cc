@@ -1,8 +1,7 @@
 // vim: set sw=2 expandtab :
 
-#include "cetlib/PluginTypeDeducer.h"
-#include "cetlib/ProvideFilePathMacro.h"
-#include "cetlib/ProvideMakePluginMacros.h"
+#include "messagefacility/plugins/mfPlugin.h"
+
 #include "cetlib/sqlite/ConnectionFactory.h"
 #include "cetlib/sqlite/Ntuple.h"
 #include "fhiclcpp/ParameterSet.h"
@@ -10,7 +9,6 @@
 #include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/TableFragment.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
-#include "messagefacility/MessageService/ELdestination.h"
 #include "messagefacility/Utilities/ErrorObj.h"
 
 #include <cstdint>
@@ -128,12 +126,10 @@ namespace {
 
 } // unnamed namespace
 
-MAKE_PLUGIN_START(auto, string const&, fhicl::ParameterSet const& pset)
+MAKE_MFPLUGIN_START(,pset)
 {
   return make_unique<sqlite3Plugin>(pset);
 }
 MAKE_PLUGIN_END
 
-CET_PROVIDE_FILE_PATH()
-DEFINE_BASIC_PLUGINTYPE_FUNC(mf::service::ELdestination)
 FHICL_PROVIDE_ALLOWED_CONFIGURATION(sqlite3Plugin)
