@@ -248,10 +248,10 @@ perllib	product_dir
 #
 ####################################
 product		version		qual	flags		<table_format=2>
-fhiclcpp	v4_13_00	-
-hep_concurrency	v1_06_00	-
-catch		v2_12_2		-	only_for_build
-cetmodules	v2_08_02	-	only_for_build
+fhiclcpp	v4_14_00	-
+hep_concurrency	v1_07_00	-
+catch		v2_13_4a		-	only_for_build
+cetmodules	v2_13_01	-	only_for_build
 end_product_list
 ####################################
 

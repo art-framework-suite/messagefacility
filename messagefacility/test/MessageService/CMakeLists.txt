@@ -1,8 +1,4 @@
-# ======================================================================
-#
-# Testing script
-#
-# ======================================================================
+cet_test_env(CLEAR "FHICL_FILE_PATH=${CMAKE_CURRENT_SOURCE_DIR}/fcl")
 
 set(SUCCESSFUL_CONFIGS
       debugModules_destination_file
@@ -36,12 +32,10 @@ set(SUCCESSFUL_CONFIGS
 foreach(testname IN LISTS SUCCESSFUL_CONFIGS)
   cet_test(${testname}_t HANDBUILT
     TEST_EXEC ELdestinationTester
-    TEST_ARGS -c ${testname}.fcl
-    DATAFILES fcl/${testname}.fcl)
+    TEST_ARGS -c ${testname}.fcl)
 endforeach()
 
 cet_test(statistics_duplicateDest_t HANDBUILT
   TEST_EXEC ELdestinationTester
   TEST_ARGS -c statistics_duplicateDest.fcl
-  DATAFILES fcl/statistics_duplicateDest.fcl
   TEST_PROPERTIES WILL_FAIL TRUE)

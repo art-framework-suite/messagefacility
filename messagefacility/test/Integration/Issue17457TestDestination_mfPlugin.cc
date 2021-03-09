@@ -1,7 +1,6 @@
 // vim: set sw=2 expandtab :
 
-#include "cetlib/ProvideFilePathMacro.h"
-#include "cetlib/ProvideMakePluginMacros.h"
+#include "messagefacility/plugins/mfPlugin.h"
 #include "fhiclcpp/types/AllowedConfigurationMacro.h"
 #include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/OptionalAtom.h"
@@ -70,12 +69,10 @@ namespace {
 
 } // unnamed namespace
 
-MAKE_PLUGIN_START(auto, string const&, fhicl::ParameterSet const& pset)
+MAKE_MFPLUGIN_START(,pset)
 {
   return make_unique<Issue17457TestDestination>(pset);
 }
 MAKE_PLUGIN_END
 
-CET_PROVIDE_FILE_PATH()
 FHICL_PROVIDE_ALLOWED_CONFIGURATION(Issue17457TestDestination)
-DEFINE_BASIC_PLUGINTYPE_FUNC(mf::service::ELdestination)

@@ -7,7 +7,8 @@
 cet_enable_asserts()
 include(CetTest)
 
-cet_test_env("FHICL_FILE_PATH=.")
+# Put everything in a different export set.
+cet_register_export_set(SET_NAME Testing NAMESPACE messagefacility_test SET_DEFAULT)
 
 add_subdirectory(Utilities)
 add_subdirectory(Integration)
