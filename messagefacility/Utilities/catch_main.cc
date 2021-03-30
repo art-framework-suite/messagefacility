@@ -4,7 +4,6 @@
 
 #include "cetlib/filepath_maker.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/make_ParameterSet.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include <string>
@@ -27,9 +26,8 @@ main(int argc, char** argv)
   int result = session.applyCommandLine(argc, argv);
   if (result == 0) {
     mf::SetIteration("JobSetup"s);
-    fhicl::ParameterSet msg_ps;
     cet::filepath_maker fpm;
-    fhicl::make_ParameterSet(fhiclConfigFileName, fpm, msg_ps);
+    auto const msg_ps = fhicl::ParameterSet::make(fhiclConfigFileName, fpm);
     mf::StartMessageFacility(msg_ps);
     result = session.run();
   }

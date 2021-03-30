@@ -7,7 +7,6 @@
 #include "boost/program_options.hpp"
 #include "cetlib/filepath_maker.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/make_ParameterSet.h"
 #include "fhiclcpp/types/detail/validationException.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/Utilities/exception.h"
@@ -106,7 +105,7 @@ main(int argc, char* argv[])
   fhicl::ParameterSet main_pset;
   try {
     // create an intermediate table from the input string
-    make_ParameterSet(config_string, filepath, main_pset);
+    main_pset = fhicl::ParameterSet::make(config_string, filepath);
   }
   catch (cet::exception const& e) {
     cerr << "ERROR: Failed to create a parameter set from an input "

@@ -10,7 +10,6 @@
 #include "cetlib/propagate_const.h"
 #include "cetlib/trim.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/make_ParameterSet.h"
 #include "fhiclcpp/types/OptionalDelegatedParameter.h"
 #include "fhiclcpp/types/detail/validationException.h"
 #include "messagefacility/MessageLogger/MFConfig.h"
@@ -193,9 +192,7 @@ namespace mf {
     fhicl::ParameterSet
     default_destination_config()
     {
-      fhicl::ParameterSet result;
-      fhicl::make_ParameterSet(default_destination_config_string, result);
-      return result;
+      return fhicl::ParameterSet::make(default_destination_config_string);
     }
 
     fhicl::ParameterSet
@@ -203,9 +200,7 @@ namespace mf {
     {
       string const config{"cerr: { "s + default_destination_config_string +
                           " }"s};
-      fhicl::ParameterSet result;
-      fhicl::make_ParameterSet(config, result);
-      return result;
+      return fhicl::ParameterSet::make(config);
     }
 
     void
@@ -366,7 +361,7 @@ namespace mf {
                                     "  filename: \"err.log\"\n"
                                     "  threshold: WARNING\n"
                                     "}\n"};
-        fhicl::make_ParameterSet(default_config, default_statistics_config);
+        default_statistics_config = fhicl::ParameterSet::make(default_config);
       }
       makeDestinations(ordinaryDests, destination_kind::ordinary);
       auto statDests = dest_psets.get<fhicl::ParameterSet>(
