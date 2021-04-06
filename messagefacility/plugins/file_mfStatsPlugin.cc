@@ -40,14 +40,13 @@ namespace {
   makePlugin_(mf::file_mfStatsPluginConfig::Parameters const& ps)
   {
     ostream_handle osh{ps().file_config().filename(),
-                       ps().file_config().append() ? ios::app :
-                                                     ios::trunc};
+                       ps().file_config().append() ? ios::app : ios::trunc};
     return make_unique<MFSTATSPLUGIN_RESULT_BASE>(ps().stats_dest(), move(osh));
   }
 
 } // unnamed namespace
 
-MAKE_MFSTATSPLUGIN_START(,pset)
+MAKE_MFSTATSPLUGIN_START(, pset)
 {
   return makePlugin_(pset);
 }

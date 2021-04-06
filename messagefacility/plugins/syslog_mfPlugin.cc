@@ -90,27 +90,27 @@ namespace mfplugins {
     //     LOG_ALERT  ; //1
     //     LOG_NOTICE ; //5
     switch (severity.getLevel()) { // Used by:
-      case ELseverityLevel::ELsev_severe:
-        return LOG_CRIT; // LogAbsolute, LogSystem
-      case ELseverityLevel::ELsev_error:
-        return LOG_ERR; // LogError, LogProblem
-      case ELseverityLevel::ELsev_warning:
-        return LOG_WARNING; // LogPrint, LogWarning
-      case ELseverityLevel::ELsev_info:
-        return LOG_INFO; // LogInfo, LogVerbatim
-      case ELseverityLevel::ELsev_success:
-        return LOG_DEBUG; // LogDebug, LogTrace
-      default:
-        throw mf::Exception(mf::errors::LogicError)
-          << "ELseverityLevel: " << severity
-          << " not currently supported for syslog destination\n";
+    case ELseverityLevel::ELsev_severe:
+      return LOG_CRIT; // LogAbsolute, LogSystem
+    case ELseverityLevel::ELsev_error:
+      return LOG_ERR; // LogError, LogProblem
+    case ELseverityLevel::ELsev_warning:
+      return LOG_WARNING; // LogPrint, LogWarning
+    case ELseverityLevel::ELsev_info:
+      return LOG_INFO; // LogInfo, LogVerbatim
+    case ELseverityLevel::ELsev_success:
+      return LOG_DEBUG; // LogDebug, LogTrace
+    default:
+      throw mf::Exception(mf::errors::LogicError)
+        << "ELseverityLevel: " << severity
+        << " not currently supported for syslog destination\n";
     }
     return -1;
   }
 
 } // namespace mfplugins
 
-MAKE_MFPLUGIN_START(,pset)
+MAKE_MFPLUGIN_START(, pset)
 {
   return make_unique<mfplugins::ELsyslog>(pset);
 }

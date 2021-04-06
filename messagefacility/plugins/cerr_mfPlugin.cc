@@ -12,7 +12,7 @@
 using namespace std;
 using cet::ostream_handle;
 
-MAKE_MFPLUGIN_START(,pset)
+MAKE_MFPLUGIN_START(, pset)
 {
   return make_unique<MFPLUGIN_RESULT_BASE>(pset, ostream_handle{cerr});
 }

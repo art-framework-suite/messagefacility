@@ -14,10 +14,9 @@
 
 #define MFSTATSPLUGIN_RESULT_BASE mf::service::ELstatistics
 
-#define MAKE_MFSTATSPLUGIN_START(pset_name, pset)                  \
-  MAKE_PLUGIN_START(auto,                                          \
-                    std::string const& pset_name,                  \
-                    fhicl::ParameterSet const& pset)
+#define MAKE_MFSTATSPLUGIN_START(pset_name, pset)                              \
+  MAKE_PLUGIN_START(                                                           \
+    auto, std::string const& pset_name, fhicl::ParameterSet const& pset)
 
 CET_PROVIDE_FILE_PATH()
 DEFINE_BASIC_PLUGINTYPE_FUNC(mf::service::ELdestination)
