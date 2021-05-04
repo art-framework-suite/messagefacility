@@ -41,8 +41,7 @@ namespace {
   makePlugin_(mf::file_mfPluginConfig::Parameters const& ps)
   {
     ostream_handle osh{ps().file_config().filename(),
-                       ps().file_config().append() ? ios::app :
-                                                     ios::trunc};
+                       ps().file_config().append() ? ios::app : ios::trunc};
     return make_unique<ELostreamOutput>(ps().ostream_dest(), move(osh));
   }
 

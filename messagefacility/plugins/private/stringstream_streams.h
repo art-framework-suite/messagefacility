@@ -17,4 +17,3 @@ namespace mf::priv {
 // Local Variables:
 // mode: c++
 // End:
-

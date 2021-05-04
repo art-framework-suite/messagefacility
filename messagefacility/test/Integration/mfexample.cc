@@ -1,6 +1,5 @@
 // vim: set sw=2 expandtab :
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/make_ParameterSet.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include <string>
@@ -22,7 +21,6 @@ anotherLogger()
 int
 main()
 {
-  fhicl::ParameterSet ps;
   string const psString{" statistics: [\"stats\"]"
                         " destinations: {"
                         "   console: { type: \"cout\" threshold: \"DEBUG\" }"
@@ -32,14 +30,14 @@ main()
                         "     append: false"
                         "   }"
                         " }"};
-  fhicl::make_ParameterSet(psString, ps);
-  // Start MessageFacility Service
-  mf::StartMessageFacility(ps);
+
+  mf::StartMessageFacility(fhicl::ParameterSet::make(psString));
   // Set application name (use process name by default)
   mf::SetApplicationName("MF_Example"s);
   // Set module name for the main thread
   mf::SetModuleName("MF_main"s);
   mf::SetIteration("pre-event"s);
+
   // Start up another logger in a separate thread
   thread loggerThread(anotherLogger);
   // Issue messages with different severity levels

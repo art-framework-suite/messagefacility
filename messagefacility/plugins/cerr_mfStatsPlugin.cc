@@ -9,7 +9,7 @@
 
 using namespace std;
 
-MAKE_MFSTATSPLUGIN_START(,pset)
+MAKE_MFSTATSPLUGIN_START(, pset)
 {
   return make_unique<MFSTATSPLUGIN_RESULT_BASE>(pset, cerr);
 }

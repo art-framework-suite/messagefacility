@@ -7,7 +7,7 @@
 #include <sstream>
 #include <string>
 
-std::map<std::string, cet::ostream_handle> mf::priv::streams {};
+std::map<std::string, cet::ostream_handle> mf::priv::streams{};
 
 using namespace std;
 using mf::priv::streams;

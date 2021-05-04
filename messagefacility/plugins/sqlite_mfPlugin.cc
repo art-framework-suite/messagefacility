@@ -126,7 +126,7 @@ namespace {
 
 } // unnamed namespace
 
-MAKE_MFPLUGIN_START(,pset)
+MAKE_MFPLUGIN_START(, pset)
 {
   return make_unique<sqlite3Plugin>(pset);
 }

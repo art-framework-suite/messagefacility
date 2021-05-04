@@ -1,12 +1,12 @@
 // vim: set sw=2 expandtab :
 
-#include "messagefacility/plugins/mfPlugin.h"
 #include "fhiclcpp/types/AllowedConfigurationMacro.h"
 #include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/OptionalAtom.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/MessageService/ELostreamOutput.h"
 #include "messagefacility/Utilities/ErrorObj.h"
+#include "messagefacility/plugins/mfPlugin.h"
 
 #include <string>
 
@@ -69,7 +69,7 @@ namespace {
 
 } // unnamed namespace
 
-MAKE_MFPLUGIN_START(,pset)
+MAKE_MFPLUGIN_START(, pset)
 {
   return make_unique<Issue17457TestDestination>(pset);
 }

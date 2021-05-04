@@ -70,33 +70,33 @@ namespace mf {
   {
     string result;
     switch (myLevel) {
-      default:
-        result = "0";
-        break;
-      case ELsev_zeroSeverity:
-        result = "--";
-        break;
-      case ELsev_success:
-        result = "-d";
-        break;
-      case ELsev_info:
-        result = "-i";
-        break;
-      case ELsev_warning:
-        result = "-w";
-        break;
-      case ELsev_error:
-        result = "-e";
-        break;
-      case ELsev_unspecified:
-        result = "??";
-        break;
-      case ELsev_severe:
-        result = "-s";
-        break;
-      case ELsev_highestSeverity:
-        result = "!!";
-        break;
+    default:
+      result = "0";
+      break;
+    case ELsev_zeroSeverity:
+      result = "--";
+      break;
+    case ELsev_success:
+      result = "-d";
+      break;
+    case ELsev_info:
+      result = "-i";
+      break;
+    case ELsev_warning:
+      result = "-w";
+      break;
+    case ELsev_error:
+      result = "-e";
+      break;
+    case ELsev_unspecified:
+      result = "??";
+      break;
+    case ELsev_severe:
+      result = "-s";
+      break;
+    case ELsev_highestSeverity:
+      result = "!!";
+      break;
     }
     return result;
   }
@@ -106,33 +106,33 @@ namespace mf {
   {
     string result;
     switch (myLevel) {
-      default:
-        result = "?no value?";
-        break;
-      case ELsev_zeroSeverity:
-        result = "--";
-        break;
-      case ELsev_success:
-        result = "Debug";
-        break;
-      case ELsev_info:
-        result = "Info";
-        break;
-      case ELsev_warning:
-        result = "Warning";
-        break;
-      case ELsev_error:
-        result = "Error";
-        break;
-      case ELsev_unspecified:
-        result = "??";
-        break;
-      case ELsev_severe:
-        result = "System";
-        break;
-      case ELsev_highestSeverity:
-        result = "!!";
-        break;
+    default:
+      result = "?no value?";
+      break;
+    case ELsev_zeroSeverity:
+      result = "--";
+      break;
+    case ELsev_success:
+      result = "Debug";
+      break;
+    case ELsev_info:
+      result = "Info";
+      break;
+    case ELsev_warning:
+      result = "Warning";
+      break;
+    case ELsev_error:
+      result = "Error";
+      break;
+    case ELsev_unspecified:
+      result = "??";
+      break;
+    case ELsev_severe:
+      result = "System";
+      break;
+    case ELsev_highestSeverity:
+      result = "!!";
+      break;
     }
     return result;
   }
@@ -142,33 +142,33 @@ namespace mf {
   {
     string result;
     switch (myLevel) {
-      default:
-        result = "?no value?";
-        break;
-      case ELsev_zeroSeverity:
-        result = "ZERO";
-        break;
-      case ELsev_success:
-        result = "DEBUG";
-        break;
-      case ELsev_info:
-        result = "INFO";
-        break;
-      case ELsev_warning:
-        result = "WARNING";
-        break;
-      case ELsev_error:
-        result = "ERROR";
-        break;
-      case ELsev_unspecified:
-        result = "UNSPECIFIED";
-        break;
-      case ELsev_severe:
-        result = "SYSTEM";
-        break;
-      case ELsev_highestSeverity:
-        result = "HIGHEST";
-        break;
+    default:
+      result = "?no value?";
+      break;
+    case ELsev_zeroSeverity:
+      result = "ZERO";
+      break;
+    case ELsev_success:
+      result = "DEBUG";
+      break;
+    case ELsev_info:
+      result = "INFO";
+      break;
+    case ELsev_warning:
+      result = "WARNING";
+      break;
+    case ELsev_error:
+      result = "ERROR";
+      break;
+    case ELsev_unspecified:
+      result = "UNSPECIFIED";
+      break;
+    case ELsev_severe:
+      result = "SYSTEM";
+      break;
+    case ELsev_highestSeverity:
+      result = "HIGHEST";
+      break;
     }
     return result;
   }
@@ -178,33 +178,33 @@ namespace mf {
   {
     string result;
     switch (myLevel) {
-      default:
-        result = "?no value?       ";
-        break;
-      case ELsev_zeroSeverity:
-        result = "ELzeroSeverity   ";
-        break;
-      case ELsev_success:
-        result = "ELdebug          ";
-        break;
-      case ELsev_info:
-        result = "ELinfo           ";
-        break;
-      case ELsev_warning:
-        result = "ELwarning        ";
-        break;
-      case ELsev_error:
-        result = "ELerror          ";
-        break;
-      case ELsev_unspecified:
-        result = "ELunspecified    ";
-        break;
-      case ELsev_severe:
-        result = "ELsystem         ";
-        break;
-      case ELsev_highestSeverity:
-        result = "ELhighestSeverity";
-        break;
+    default:
+      result = "?no value?       ";
+      break;
+    case ELsev_zeroSeverity:
+      result = "ELzeroSeverity   ";
+      break;
+    case ELsev_success:
+      result = "ELdebug          ";
+      break;
+    case ELsev_info:
+      result = "ELinfo           ";
+      break;
+    case ELsev_warning:
+      result = "ELwarning        ";
+      break;
+    case ELsev_error:
+      result = "ELerror          ";
+      break;
+    case ELsev_unspecified:
+      result = "ELunspecified    ";
+      break;
+    case ELsev_severe:
+      result = "ELsystem         ";
+      break;
+    case ELsev_highestSeverity:
+      result = "ELhighestSeverity";
+      break;
     }
     return result;
   }
