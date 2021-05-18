@@ -3,9 +3,8 @@
 // vim: set sw=2 expandtab :
 
 #include "cetlib/PluginTypeDeducer.h"
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcpp/fwd.h"
 #include "fhiclcpp/types/Atom.h"
-#include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/OptionalDelegatedParameter.h"
 #include "fhiclcpp/types/Table.h"
 #include "fhiclcpp/types/TableFragment.h"
@@ -14,8 +13,9 @@
 
 #include <bitset>
 #include <cstddef>
+#include <ctime>
+#include <iosfwd>
 #include <map>
-#include <ostream>
 #include <sstream>
 #include <string>
 

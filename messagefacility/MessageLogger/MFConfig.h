@@ -2,6 +2,7 @@
 #define messagefacility_MessageLogger_MFConfig_h
 // vim: set sw=2 expandtab :
 
+#include "fhiclcpp/types/Atom.h"
 #include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/OptionalDelegatedParameter.h"
 #include "fhiclcpp/types/Sequence.h"
@@ -11,20 +12,12 @@
 
 namespace mf {
 
-  class MFDestinationConfig {
-
-    // Configuration
-  public:
+  struct MFDestinationConfig {
     struct Config {
-
-      ~Config();
       Config();
-
       fhicl::OptionalDelegatedParameter destinations;
     };
 
-    // Special Member Functions
-  public:
     ~MFDestinationConfig();
     MFDestinationConfig();
     MFDestinationConfig(MFDestinationConfig const&) = delete;
@@ -33,13 +26,8 @@ namespace mf {
     MFDestinationConfig& operator=(MFDestinationConfig&&) = delete;
   };
 
-  class MFConfig {
-
-    // Configuration
-  public:
+  struct MFConfig {
     struct Config {
-
-      ~Config();
       Config();
 
       // Note: Now obsolete, not removed to preserve backwards compatibility.
@@ -54,11 +42,6 @@ namespace mf {
     };
 
     using Parameters = fhicl::WrappedTable<Config>;
-
-    // Special Member Functions
-  public:
-    ~MFConfig();
-    MFConfig();
   };
 
 } // namespace mf

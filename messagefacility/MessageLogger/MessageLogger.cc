@@ -4,28 +4,19 @@
 #include "cetlib/BasicPluginFactory.h"
 #include "cetlib/HorizontalRule.h"
 #include "cetlib/bold_fontify.h"
-#include "cetlib/container_algorithms.h"
-#include "cetlib/exempt_ptr.h"
 #include "cetlib/plugin_libpath.h"
-#include "cetlib/propagate_const.h"
-#include "cetlib/trim.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/types/OptionalDelegatedParameter.h"
 #include "fhiclcpp/types/detail/validationException.h"
 #include "messagefacility/MessageLogger/MFConfig.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/MessageService/ELdestination.h"
 #include "messagefacility/MessageService/ELostreamOutput.h"
 #include "messagefacility/Utilities/ELseverityLevel.h"
 #include "messagefacility/Utilities/ErrorObj.h"
 #include "messagefacility/Utilities/exception.h"
 
-#include <algorithm>
 #include <atomic>
-#include <cassert>
 #include <cstdlib>
-#include <fstream>
-#include <iosfwd>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -506,8 +497,7 @@ namespace mf {
   {
     isStarted.store(false);
     // FIXME: The finish() call in all known uses does nothing, the destination
-    // dtor can probably handle this, remove!
-    // map<string, cet::propagate_const<unique_ptr<service::ELdestination>>>
+    //        dtor can probably handle this, remove!
     for (auto& category_and_destination : destinations_) {
       category_and_destination.second->finish();
     }

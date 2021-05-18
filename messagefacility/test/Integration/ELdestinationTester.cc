@@ -1,6 +1,5 @@
 // vim: set sw=2 expandtab :
 
-//#define NDEBUG
 #define MF_DEBUG // always enable debug
 
 #include "boost/filesystem.hpp"
@@ -11,7 +10,6 @@
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/Utilities/exception.h"
 
-#include <cstdlib>
 #include <iostream>
 #include <string>
 

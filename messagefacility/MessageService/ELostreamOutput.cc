@@ -1,14 +1,11 @@
 #include "messagefacility/MessageService/ELostreamOutput.h"
 // vim: set sw=2 expandtab :
 
-#include "messagefacility/Utilities/ErrorObj.h"
-
 using namespace std;
 
 namespace mf::service {
 
   ELostreamOutput::~ELostreamOutput() = default;
-
   ELostreamOutput::ELostreamOutput(Parameters const& ps,
                                    ostream& os,
                                    bool const emitAtStart)

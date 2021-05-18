@@ -4,6 +4,8 @@
 
 #include "messagefacility/Utilities/ELseverityLevel.h"
 
+#include <string>
+
 namespace mf {
 
   class ELextendedID {

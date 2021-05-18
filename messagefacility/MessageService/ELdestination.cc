@@ -1,7 +1,6 @@
 #include "messagefacility/MessageService/ELdestination.h"
 // vim: set sw=2 expandtab :
 
-#include "cetlib/PluginTypeDeducer.h"
 #include "cetlib/bold_fontify.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/types/Atom.h"
@@ -15,12 +14,8 @@
 #include <bitset>
 #include <cstddef>
 #include <cstdio>
-#include <cstring>
-#include <fstream>
 #include <functional>
 #include <iomanip>
-#include <ios>
-#include <iostream>
 #include <limits>
 #include <map>
 #include <ostream>

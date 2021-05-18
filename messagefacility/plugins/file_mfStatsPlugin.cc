@@ -11,7 +11,6 @@
 #include "fhiclcpp/types/TableFragment.h"
 
 #include <fstream>
-#include <iostream>
 #include <memory>
 #include <utility>
 
@@ -22,9 +21,7 @@ using namespace mf::service;
 namespace mf {
 
   struct file_mfStatsPluginConfig {
-
     struct Config {
-
       fhicl::TableFragment<ELstatistics::Config> stats_dest;
       fhicl::TableFragment<mf::priv::FileConfig> file_config;
     };

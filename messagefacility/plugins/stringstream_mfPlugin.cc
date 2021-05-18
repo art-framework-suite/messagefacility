@@ -1,6 +1,5 @@
 // vim: set sw=2 expandtab :
 #include "private/stringstream_streams.h"
-#include "stringstream.h"
 
 #include "messagefacility/plugins/mfPlugin.h"
 

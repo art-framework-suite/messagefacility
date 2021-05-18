@@ -8,17 +8,13 @@
 #include <list>
 #include <sstream>
 #include <string>
-#include <type_traits>
 
 #include <sys/time.h>
 
 namespace mf {
 
-  class ErrorLog;
-
   // Note: This class is virtual because it is user-visible and customizable.
   class ErrorObj {
-
   public:
     virtual ~ErrorObj();
     ErrorObj() = delete;

@@ -9,7 +9,6 @@
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/Utilities/exception.h"
 
-#include <cstdlib>
 #include <iostream>
 
 namespace bpo = boost::program_options;

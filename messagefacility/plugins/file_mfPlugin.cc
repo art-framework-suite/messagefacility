@@ -11,10 +11,7 @@
 #include "fhiclcpp/types/TableFragment.h"
 
 #include <fstream>
-#include <iostream>
 #include <memory>
-#include <string>
-#include <utility>
 
 using namespace std;
 using cet::ostream_handle;
@@ -23,9 +20,7 @@ using namespace mf::service;
 namespace mf {
 
   struct file_mfPluginConfig {
-
     struct Config {
-
       fhicl::TableFragment<ELostreamOutput::Config> ostream_dest;
       fhicl::TableFragment<priv::FileConfig> file_config;
     };
