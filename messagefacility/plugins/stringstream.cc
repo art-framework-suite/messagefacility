@@ -3,7 +3,6 @@
 
 #include "messagefacility/Utilities/exception.h"
 
-#include <iostream>
 #include <sstream>
 #include <string>
 

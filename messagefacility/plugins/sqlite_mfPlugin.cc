@@ -11,7 +11,6 @@
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/Utilities/ErrorObj.h"
 
-#include <cstdint>
 #include <memory>
 #include <sstream>
 #include <string>

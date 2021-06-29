@@ -2,6 +2,7 @@
 #define messagefacility_Utilities_ELseverityLevel_h
 // vim: set sw=2 expandtab :
 
+#include <iosfwd>
 #include <string>
 
 namespace mf {

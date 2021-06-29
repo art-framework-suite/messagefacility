@@ -1,17 +1,13 @@
 #include "messagefacility/MessageLogger/MFConfig.h"
 // vim: set sw=2 expandtab :
 
-#include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/Sequence.h"
-#include "fhiclcpp/types/TableFragment.h"
 
 #include <string>
 
 using namespace std;
 
 namespace mf {
-
-  MFConfig::Config::~Config() {}
 
   MFConfig::Config::Config()
     : debugModules{fhicl::Name{"debugModules"},
@@ -38,12 +34,6 @@ namespace mf {
                       fhicl::Sequence<string>::default_type{}}
     , destinations{}
   {}
-
-  MFConfig::~MFConfig() {}
-
-  MFConfig::MFConfig() {}
-
-  MFDestinationConfig::Config::~Config() {}
 
   MFDestinationConfig::Config::Config()
     : destinations{
