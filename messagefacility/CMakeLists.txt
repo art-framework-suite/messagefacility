@@ -1,11 +1,11 @@
 include(CetMake)
 
-cet_find_package(Boost PRIVATE COMPONENTS filesystem program_options REQUIRED)
-cet_find_package(Catch2 PRIVATE REQUIRED)
-cet_find_package(cetlib REQUIRED)
-cet_find_package(cetlib_except REQUIRED)
-cet_find_package(fhiclcpp REQUIRED)
-cet_find_package(hep_concurrency PRIVATE REQUIRED)
+find_package(Boost PRIVATE COMPONENTS filesystem program_options REQUIRED)
+find_package(Catch2 PRIVATE REQUIRED)
+find_package(cetlib REQUIRED PUBLIC)
+find_package(cetlib_except REQUIRED PUBLIC)
+find_package(fhiclcpp REQUIRED PUBLIC)
+find_package(hep_concurrency PRIVATE REQUIRED)
 
 cet_make_library(LIBRARY_NAME MF_MessageLogger HEADERS_TARGET
   SOURCE
