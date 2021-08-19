@@ -7,7 +7,7 @@ include(CetCMakeEnv)
 cet_cmake_env()
 
 # Find our own CMake modules, and tell everyone else where to find them.
-cet_cmake_module_directories(Modules)
+cet_cmake_module_directories(Modules BINARY)
 
 cet_set_compiler_flags(DIAGS VIGILANT
   WERROR
@@ -41,7 +41,6 @@ add_subdirectory(messagefacility)
 add_subdirectory(perllib)
 add_subdirectory(xcompile)
 add_subdirectory(tools/migration)
-add_subdirectory(Modules)
 
 # This step enables building the package tarball
 # packaging utility
