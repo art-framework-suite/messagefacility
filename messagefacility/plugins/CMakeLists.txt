@@ -24,15 +24,21 @@ cet_make_library(LIBRARY_NAME mfStatsPlugin INTERFACE
   fhiclcpp::fhiclcpp
 )
 
-include(mfPlugin)
-include(mfStatsPlugin)
+include(BasicPlugin)
+foreach(type IN ITEMS mfPlugin mfStatsPlugin)
+  cet_make_plugin_builder(${type} ${type} Modules
+    LIBRARIES REG art_plugin_types::${type})
+endforeach()
+
+cet_collect_plugin_builders(Modules MessagefacilityPlugins)
+include(MessagefacilityPlugins)
 
 # Output plugins.
 foreach (plugin cout cerr file syslog sqlite)
-  mfPlugin(${plugin})
+  cet_build_plugin(${plugin} mfPlugin)
 endforeach()
 
-mfPlugin(stringstream
+cet_build_plugin(stringstream mfPlugin
   LIBRARIES
   PRIVATE messagefacility::MF_MessageLogger cetlib::cetlib
   REG cetlib::cetlib
@@ -47,7 +53,7 @@ target_link_libraries(messagefacility_plugins_sqlite_mfPlugin PRIVATE cetlib::sq
 
 # Statistics plugins.
 foreach (plugin cout cerr file)
-  mfStatsPlugin(${plugin})
+  cet_build_plugin(${plugin} mfStatsPlugin)
 endforeach()
 
 target_link_libraries(messagefacility_plugins_file_mfStatsPlugin PRIVATE cetlib::cetlib)

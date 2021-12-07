@@ -325,8 +325,7 @@ Category parameters
       fhicl::Table<Category::Config> category_params{fhicl::Name{category},
                                                      default_pset};
       try {
-        category_params.validate_ParameterSet(
-          cats_pset.get<fhicl::ParameterSet>(category));
+        category_params.validate(cats_pset.get<fhicl::ParameterSet>(category));
       }
       catch (fhicl::detail::validationException const& e) {
         string msg{"Category: " + cet::bold_fontify(category) + "\n\n"};
