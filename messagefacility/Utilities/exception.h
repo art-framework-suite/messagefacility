@@ -2,6 +2,7 @@
 #define messagefacility_Utilities_exception_h
 
 #include "cetlib_except/coded_exception.h"
+
 #include <string>
 
 namespace mf {
@@ -13,13 +14,11 @@ namespace mf {
     std::string translate(errors::error);
   }
 
-  typedef cet::coded_exception<errors::error, detail::translate> Exception;
+  using Exception = cet::coded_exception<errors::error, detail::translate>;
 } // mf
 
 #endif /* messagefacility_Utilities_exception_h */
 
 /// Local Variables:
 /// mode: C++
-/// c-basic-offset: 2
-/// indent-tabs-mode: nil
 /// End:
