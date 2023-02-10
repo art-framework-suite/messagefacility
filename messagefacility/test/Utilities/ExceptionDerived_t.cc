@@ -27,7 +27,8 @@ func2()
 }
 
 [[noreturn]] void
-func1() try {
+func1()
+try {
   func2();
 }
 catch (cet::exception& e) {
@@ -35,7 +36,8 @@ catch (cet::exception& e) {
 }
 
 int
-main() try {
+main()
+try {
   func1();
 }
 catch (cet::exception& e) {

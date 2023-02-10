@@ -223,24 +223,48 @@ namespace mf {
 // Non-verbatim messages, standard decorations.
 // Note: MF_LOG_DEBUG is below.
 #define MF_LOG_INFO(category)                                                  \
-  mf::LogInfo { category, __FILE__, __LINE__ }
+  mf::LogInfo                                                                  \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 #define MF_LOG_WARNING(category)                                               \
-  mf::LogWarning { category, __FILE__, __LINE__ }
+  mf::LogWarning                                                               \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 #define MF_LOG_ERROR(category)                                                 \
-  mf::LogError { category, __FILE__, __LINE__ }
+  mf::LogError                                                                 \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 #define MF_LOG_SYSTEM(category)                                                \
-  mf::LogSystem { category, __FILE__, __LINE__ }
+  mf::LogSystem                                                                \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 
 // Verbatim messages, no decorations at all.
 // Note: MF_LOG_TRACE is below.
 #define MF_LOG_VERBATIM(category)                                              \
-  mf::LogVerbatim { category, __FILE__, __LINE__ }
+  mf::LogVerbatim                                                              \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 #define MF_LOG_PRINT(category)                                                 \
-  mf::LogPrint { category, __FILE__, __LINE__ }
+  mf::LogPrint                                                                 \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 #define MF_LOG_PROBLEM(category)                                               \
-  mf::LogProblem { category, __FILE__, __LINE__ }
+  mf::LogProblem                                                               \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 #define MF_LOG_ABSOLUTE(category)                                              \
-  mf::LogAbsolute { category, __FILE__, __LINE__ }
+  mf::LogAbsolute                                                              \
+  {                                                                            \
+    category, __FILE__, __LINE__                                               \
+  }
 
 #undef MF_SUPPRESS_LOG_DEBUG
 
@@ -259,16 +283,24 @@ namespace mf {
 #ifdef MF_SUPPRESS_LOG_DEBUG
 
 #define MF_LOG_DEBUG(id)                                                       \
-  mf::NeverLogger_ {}
+  mf::NeverLogger_                                                             \
+  {}
 #define MF_LOG_TRACE(id)                                                       \
-  mf::NeverLogger_ {}
+  mf::NeverLogger_                                                             \
+  {}
 
 #else // MF_SUPPRESS_LOG_DEBUG
 
 #define MF_LOG_DEBUG(id)                                                       \
-  mf::LogDebug { id, __FILE__, __LINE__ }
+  mf::LogDebug                                                                 \
+  {                                                                            \
+    id, __FILE__, __LINE__                                                     \
+  }
 #define MF_LOG_TRACE(id)                                                       \
-  mf::LogTrace { id, __FILE__, __LINE__ }
+  mf::LogTrace                                                                 \
+  {                                                                            \
+    id, __FILE__, __LINE__                                                     \
+  }
 
 #endif // MF_SUPPRESS_LOG_DEBUG
 

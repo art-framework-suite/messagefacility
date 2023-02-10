@@ -394,7 +394,8 @@ namespace mf {
     }
 
     void
-    summarize() try {
+    summarize()
+    try {
       for (auto& destid_and_dest : destinations_) {
         auto& dest = *destid_and_dest.second;
         dest.summary();

@@ -207,8 +207,9 @@ to 600.  A value of zero or less disables the timespan functionality.)";
       ++n_;
     }
     ++aggregateN_;
-    ((n_ == 1) ? context1_ : (n_ == 2) ? context2_ : contextLast_) =
-      string(context, 0, 16);
+    ((n_ == 1) ? context1_ :
+     (n_ == 2) ? context2_ :
+                 contextLast_) = string(context, 0, 16);
     if (!reactedTo) {
       ignoredFlag_ = true;
     }

@@ -38,7 +38,8 @@ namespace {
   {
     ostream_handle osh{ps().file_config().filename(),
                        ps().file_config().append() ? ios::app : ios::trunc};
-    return make_unique<MFSTATSPLUGIN_RESULT_BASE>(ps().stats_dest(), std::move(osh));
+    return make_unique<MFSTATSPLUGIN_RESULT_BASE>(ps().stats_dest(),
+                                                  std::move(osh));
   }
 
 } // unnamed namespace
