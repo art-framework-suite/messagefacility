@@ -1,7 +1,7 @@
 include(CetMake)
 
 find_package(Boost COMPONENTS filesystem program_options REQUIRED)
-find_package(Catch2 REQUIRED)
+find_package(Catch2 REQUIRED EXPORT)
 find_package(cetlib REQUIRED EXPORT)
 find_package(cetlib_except REQUIRED EXPORT)
 find_package(fhiclcpp REQUIRED EXPORT)
