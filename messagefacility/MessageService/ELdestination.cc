@@ -207,8 +207,9 @@ to 600.  A value of zero or less disables the timespan functionality.)";
       ++n_;
     }
     ++aggregateN_;
-    ((n_ == 1) ? context1_ : (n_ == 2) ? context2_ : contextLast_) =
-      string(context, 0, 16);
+    ((n_ == 1) ? context1_ :
+     (n_ == 2) ? context2_ :
+                 contextLast_) = string(context, 0, 16);
     if (!reactedTo) {
       ignoredFlag_ = true;
     }
@@ -316,7 +317,7 @@ Category parameters
     catch (fhicl::detail::validationException const& e) {
       string msg{"Category: "s + cet::bold_fontify("default"s) + "\n\n"s};
       msg += e.what();
-      configuration_errors.push_back(move(msg));
+      configuration_errors.push_back(std::move(msg));
     }
     // Now establish this destination's limit/reportEvery/timespan for
     // each category, using the values of the possibly-specified
@@ -331,7 +332,7 @@ Category parameters
       catch (fhicl::detail::validationException const& e) {
         string msg{"Category: " + cet::bold_fontify(category) + "\n\n"};
         msg += e.what();
-        configuration_errors.push_back(move(msg));
+        configuration_errors.push_back(std::move(msg));
       }
 
       if (category_params().limit() < 0) {

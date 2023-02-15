@@ -34,5 +34,7 @@ install_source(SUBDIRS MessageLogger MessageService)
 add_subdirectory(Utilities)
 add_subdirectory(plugins)
 
-# Testing
+# N.B. ELdestinationTester should be built and installed even if
+# BUILD_TESTING is FALSE (see test/CMakeLists.txt and
+# test/Integration/CMakeLists.txt).
 add_subdirectory(test)

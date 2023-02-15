@@ -10,6 +10,10 @@ cet_make_exec(NAME ELdestinationTester
                 Boost::filesystem
                 Boost::program_options)
 
+if (NOT BUILD_TESTING)
+  return()
+endif()
+
 cet_test(Presence_init_t LIBRARIES PRIVATE MF_MessageLogger fhiclcpp::fhiclcpp)
 
 cet_test(WildcardDebug_t

@@ -37,7 +37,7 @@ namespace {
   {
     ostream_handle osh{ps().file_config().filename(),
                        ps().file_config().append() ? ios::app : ios::trunc};
-    return make_unique<ELostreamOutput>(ps().ostream_dest(), move(osh));
+    return make_unique<ELostreamOutput>(ps().ostream_dest(), std::move(osh));
   }
 
 } // unnamed namespace
