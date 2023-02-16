@@ -80,7 +80,7 @@
             },
             "messagefacility_UPS_BUILD_ONLY_DEPENDENCIES_INIT" : {
                "type" : "STRING",
-               "value" : "catch;cetmodules"
+               "value" : "cetmodules"
             },
             "messagefacility_UPS_PRODUCT_FLAVOR_INIT" : {
                "type" : "STRING",
