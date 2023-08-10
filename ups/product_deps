@@ -248,9 +248,9 @@ perllib	product_dir
 #
 ####################################
 product		version		qual	flags		<table_format=2>
-fhiclcpp	v4_18_00	-
-catch		v3_3_1a		-
-cetmodules	v3_21_00	-	only_for_build
+fhiclcpp	v4_18_01	-
+catch		v3_3_2		-
+cetmodules	v3_22_01	-	only_for_build
 end_product_list
 ####################################
 
@@ -316,6 +316,8 @@ e26:debug	e26	e26:debug
 e26:prof	e26	e26:prof
 e27:debug	e27	e27:debug
 e27:prof	e27	e27:prof
+e28:debug	e28	e28:debug
+e28:prof	e28	e28:prof
 end_qualifier_list
 ####################################
 
