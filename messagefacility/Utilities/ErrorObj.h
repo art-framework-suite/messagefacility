@@ -13,6 +13,11 @@
 
 namespace mf {
 
+  template <typename T>
+  concept streamable = requires (T t, std::ostream & os) {
+    {os << t};
+  };
+
   // Note: This class is virtual because it is user-visible and customizable.
   class ErrorObj {
   public:
@@ -67,7 +72,7 @@ namespace mf {
     // instantiations of char const[] types.
     ErrorObj& opltlt(char const*);
 
-    template <class T>
+    template <streamable T>
     ErrorObj& opltlt(T const&);
 
     virtual ErrorObj& eo_emit(std::string const&);
@@ -90,7 +95,7 @@ namespace mf {
     int lineNumber_{};
   };
 
-  template <class T>
+  template <streamable T>
   ErrorObj&
   ErrorObj::opltlt(T const& t)
   {

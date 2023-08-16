@@ -164,6 +164,7 @@ namespace mf {
     }
 
     template <class T>
+    requires streamable<T>
     decltype(auto)
     operator<<(T const& t)
     {
