@@ -14,9 +14,11 @@
 namespace mf {
 
   template <typename T>
-  concept streamable = requires (T t, std::ostream & os) {
-    {os << t};
-  };
+  concept streamable = requires(T t, std::ostream& os) {
+                         {
+                           os << t
+                         };
+                       };
 
   // Note: This class is virtual because it is user-visible and customizable.
   class ErrorObj {

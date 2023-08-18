@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <ostream>
+#include <source_location>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -164,8 +165,7 @@ namespace mf {
     }
 
     template <class T>
-    requires streamable<T>
-    decltype(auto)
+      requires streamable<T> decltype(auto)
     operator<<(T const& t)
     {
       if (msg_) {
@@ -226,22 +226,26 @@ namespace mf {
 #define MF_LOG_INFO(category)                                                  \
   mf::LogInfo                                                                  \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 #define MF_LOG_WARNING(category)                                               \
   mf::LogWarning                                                               \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 #define MF_LOG_ERROR(category)                                                 \
   mf::LogError                                                                 \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 #define MF_LOG_SYSTEM(category)                                                \
   mf::LogSystem                                                                \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 
 // Verbatim messages, no decorations at all.
@@ -249,22 +253,26 @@ namespace mf {
 #define MF_LOG_VERBATIM(category)                                              \
   mf::LogVerbatim                                                              \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 #define MF_LOG_PRINT(category)                                                 \
   mf::LogPrint                                                                 \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 #define MF_LOG_PROBLEM(category)                                               \
   mf::LogProblem                                                               \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 #define MF_LOG_ABSOLUTE(category)                                              \
   mf::LogAbsolute                                                              \
   {                                                                            \
-    category, __FILE__, __LINE__                                               \
+    category, std::source_location::current().file_name(),                    \
+      std::source_location::current().line()                                  \
   }
 
 #undef MF_SUPPRESS_LOG_DEBUG
@@ -293,14 +301,15 @@ namespace mf {
 #else // MF_SUPPRESS_LOG_DEBUG
 
 #define MF_LOG_DEBUG(id)                                                       \
-  mf::LogDebug                                                                 \
-  {                                                                            \
-    id, __FILE__, __LINE__                                                     \
-  }
+  mf::LogDebug(id,                                                             \
+               std::source_location::current().file_name(),                    \
+               std::source_location::current().line())
+
 #define MF_LOG_TRACE(id)                                                       \
   mf::LogTrace                                                                 \
   {                                                                            \
-    id, __FILE__, __LINE__                                                     \
+    id, std::source_location::current().file_name(),                          \
+      std::source_location::current().line()                                  \
   }
 
 #endif // MF_SUPPRESS_LOG_DEBUG
