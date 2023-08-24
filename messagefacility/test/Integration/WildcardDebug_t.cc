@@ -1,14 +1,15 @@
 // #define NDEBUG
 #define MF_DEBUG // always enable debug
 
-#include "boost/filesystem.hpp"
-#include "boost/program_options.hpp"
 #include "cetlib/filepath_maker.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/types/detail/validationException.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 #include "messagefacility/Utilities/exception.h"
 
+#include "boost/program_options.hpp"
+
+#include <filesystem>
 #include <iostream>
 
 namespace bpo = boost::program_options;
@@ -33,7 +34,7 @@ main(int argc, char* argv[])
           << "      ...\n"
           << "    }\n"
           << "  }\n\n"
-          << "Usage: " << boost::filesystem::path(argv[0]).filename().native()
+          << "Usage: " << filesystem::path(argv[0]).filename().native()
           << " -c <config-file> \n\n"
           << "Allowed options";
   bpo::options_description desc{descstr.str()};
