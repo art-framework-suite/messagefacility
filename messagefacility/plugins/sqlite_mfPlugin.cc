@@ -49,7 +49,7 @@ namespace {
     void routePayload(ostringstream const&, mf::ErrorObj const&) override;
 
   private:
-    Connection* connection_;
+    std::unique_ptr<Connection> connection_;
     Ntuple<string,
            string,
            string,
@@ -66,8 +66,6 @@ namespace {
   {
     delete msgTable_;
     msgTable_ = nullptr;
-    delete connection_;
-    connection_ = nullptr;
   }
 
   sqlite3Plugin::sqlite3Plugin(Parameters const& ps)
