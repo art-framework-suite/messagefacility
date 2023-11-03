@@ -1,4 +1,4 @@
-//#define NDEBUG
+// #define NDEBUG
 #define MF_DEBUG // always enable debug
 
 #include "boost/filesystem.hpp"

@@ -1,7 +1,6 @@
 cet_test_env(CLEAR "FHICL_FILE_PATH=${CMAKE_CURRENT_SOURCE_DIR}/fcl")
 
-include(BasicPlugin)
-include(mfPlugin)
+include(MessagefacilityPlugins)
 cet_make_exec(NAME ELdestinationTester
               LIBRARIES PRIVATE
                 MF_MessageLogger
@@ -10,6 +9,10 @@ cet_make_exec(NAME ELdestinationTester
                 cetlib::cetlib
                 Boost::filesystem
                 Boost::program_options)
+
+if (NOT BUILD_TESTING)
+  return()
+endif()
 
 cet_test(Presence_init_t LIBRARIES PRIVATE MF_MessageLogger fhiclcpp::fhiclcpp)
 
@@ -23,8 +26,8 @@ cet_test(WildcardDebug_t
          TEST_ARGS -c WildcardDebug_t.fcl
          REF ${CMAKE_CURRENT_SOURCE_DIR}/WildcardDebug_t-ref.txt)
 
-mfPlugin(Issue17457TestDestination NO_INSTALL
-  LIBRARIES REG MF_MessageLogger fhiclcpp::types)
+cet_build_plugin(Issue17457TestDestination mfPlugin NO_INSTALL LIBRARIES
+  REG MF_MessageLogger fhiclcpp::types)
 
 foreach (N IN ITEMS 01 02) # 03 04 05)
   set(test_stem Issue17457_${N})

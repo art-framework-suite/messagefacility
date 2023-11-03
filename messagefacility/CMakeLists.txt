@@ -1,11 +1,11 @@
 include(CetMake)
 
-find_package(Boost PRIVATE COMPONENTS filesystem program_options REQUIRED)
-find_package(Catch2 PRIVATE REQUIRED)
-find_package(cetlib REQUIRED PUBLIC)
-find_package(cetlib_except REQUIRED PUBLIC)
-find_package(fhiclcpp REQUIRED PUBLIC)
-find_package(hep_concurrency PRIVATE REQUIRED)
+find_package(Boost COMPONENTS filesystem program_options REQUIRED)
+find_package(Catch2 REQUIRED EXPORT)
+find_package(cetlib REQUIRED EXPORT)
+find_package(cetlib_except REQUIRED EXPORT)
+find_package(fhiclcpp REQUIRED EXPORT)
+find_package(hep_concurrency REQUIRED)
 
 cet_make_library(LIBRARY_NAME MF_MessageLogger HEADERS_TARGET
   SOURCE
@@ -34,5 +34,7 @@ install_source(SUBDIRS MessageLogger MessageService)
 add_subdirectory(Utilities)
 add_subdirectory(plugins)
 
-# Testing
+# N.B. ELdestinationTester should be built and installed even if
+# BUILD_TESTING is FALSE (see test/CMakeLists.txt and
+# test/Integration/CMakeLists.txt).
 add_subdirectory(test)

@@ -15,13 +15,13 @@ namespace mf::service {
   ELostreamOutput::ELostreamOutput(Parameters const& ps,
                                    cet::ostream_handle&& h,
                                    bool const emitAtStart)
-    : ELostreamOutput{ps(), move(h), emitAtStart}
+    : ELostreamOutput{ps(), std::move(h), emitAtStart}
   {}
 
   ELostreamOutput::ELostreamOutput(Config const& config,
                                    cet::ostream_handle&& h,
                                    bool const emitAtStart)
-    : ELdestination{config.elDestConfig()}, osh{move(h)}
+    : ELdestination{config.elDestConfig()}, osh{std::move(h)}
   {
     if (emitAtStart) {
       emitToken(

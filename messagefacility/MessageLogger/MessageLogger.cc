@@ -304,7 +304,7 @@ namespace mf {
           string msg{"Configuration error for destination: " +
                      cet::bold_fontify(psetname) + "\n\n"};
           msg += e.what();
-          config_errors.push_back(move(msg));
+          config_errors.push_back(std::move(msg));
         }
       }
       if (!empty(config_errors)) {
@@ -394,7 +394,8 @@ namespace mf {
     }
 
     void
-    summarize() try {
+    summarize()
+    try {
       for (auto& destid_and_dest : destinations_) {
         auto& dest = *destid_and_dest.second;
         dest.summary();

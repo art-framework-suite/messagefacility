@@ -1,6 +1,5 @@
 // vim: set sw=2 expandtab :
-#define CATCH_CONFIG_RUNNER
-#include "catch2/catch.hpp"
+#include "catch2/catch_session.hpp"
 
 #include "cetlib/filepath_maker.h"
 #include "fhiclcpp/ParameterSet.h"
@@ -16,7 +15,7 @@ main(int argc, char** argv)
 {
   Catch::Session session;
   std::string fhiclConfigFileName;
-  using namespace Catch::clara;
+  using namespace Catch::Clara;
   // Our non-option argument, being non-optional, should be first.
   auto cli = Arg(fhiclConfigFileName, "config.fcl")("<fhicl-config-file>") |
              session.cli();
