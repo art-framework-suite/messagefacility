@@ -52,9 +52,6 @@ namespace mf {
       return cet::search_path{cet::plugin_libpath(), std::nothrow};
     }
 
-    cet::BasicPluginFactory pluginFactory_{getPluginPath(), "mfPlugin"};
-    cet::BasicPluginFactory pluginStatsFactory_{getPluginPath(),
-                                                "mfStatsPlugin"};
     atomic<bool> isStarted{false};
     map<string const, unique_ptr<service::ELdestination>> destinations_;
     bool cleanSlateConfiguration_{true};
@@ -226,6 +223,7 @@ namespace mf {
 
     void
     makeDestinations(fhicl::ParameterSet const& dests,
+                     cet::BasicPluginFactory& plugin_factory,
                      destination_kind const configuration)
     {
       set<string> ids;
@@ -293,9 +291,6 @@ namespace mf {
           continue;
         }
         string const& libspec = dest_type;
-        auto& plugin_factory = (configuration == destination_kind::statistics) ?
-                                 pluginStatsFactory_ :
-                                 pluginFactory_;
         try {
           destinations_[outputId] =
             makePlugin_(plugin_factory, libspec, psetname, dest_pset);
@@ -328,7 +323,9 @@ namespace mf {
     }
 
     void
-    configure(MFDestinationConfig::Config const& config)
+    configure(MFDestinationConfig::Config const& config,
+              cet::BasicPluginFactory& pluginFactory,
+              cet::BasicPluginFactory& pluginStatsFactory)
     {
       if (destinations_.size() > 1) {
         LogWarning("multiLogConfig")
@@ -354,10 +351,10 @@ namespace mf {
                                     "}\n"};
         default_statistics_config = fhicl::ParameterSet::make(default_config);
       }
-      makeDestinations(ordinaryDests, destination_kind::ordinary);
+      makeDestinations(ordinaryDests, pluginFactory, destination_kind::ordinary);
       auto statDests = dest_psets.get<fhicl::ParameterSet>(
         "statistics", default_statistics_config);
-      makeDestinations(statDests, destination_kind::statistics);
+      makeDestinations(statDests, pluginStatsFactory, destination_kind::statistics);
     }
 
     void
@@ -464,12 +461,17 @@ namespace mf {
     if (isStarted.load()) {
       return;
     }
+
+    cet::BasicPluginFactory pluginFactory{getPluginPath(), "mfPlugin"};
+    cet::BasicPluginFactory pluginStatsFactory{getPluginPath(),
+                                               "mfStatsPlugin"};
+
     // FIXME: We should not have to call StartMessageFacility() to get these
     // initialized!
     initGlobalVars(applicationName);
     try {
       destinations_["cerr_early"s] = makePlugin_(
-        pluginFactory_, "cerr", "cerr_early", default_destination_config());
+        pluginFactory, "cerr", "cerr_early", default_destination_config());
     }
     catch (fhicl::detail::validationException const& e) {
       string msg{"\nConfiguration error for destination: " +
@@ -479,8 +481,11 @@ namespace mf {
     }
     try {
       // Note: We make all the destinations here.
-      configure(MFDestinationConfig::Config{
-        MFConfig::Parameters{pset}().destinations()});
+      configure(
+        MFDestinationConfig::Config{
+          MFConfig::Parameters{pset}().destinations()},
+        pluginFactory,
+        pluginStatsFactory);
     }
     catch (Exception const& ex) {
       // FIXME: Hardly seems necessary to rethrow just to change the message to
