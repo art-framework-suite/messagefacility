@@ -1,4 +1,3 @@
-
 #include "cetlib_except/exception.h"
 
 #include <cassert>
@@ -50,7 +49,6 @@ func3()
   char c2[] = "a c-style array";
   Thing thing(4);
 
-  //  throw cms::Exception("DataCorrupt")
   cet::exception e("DataCorrupt");
   e << "This is just a test: \n"
     << "double: " << d << "\n"
