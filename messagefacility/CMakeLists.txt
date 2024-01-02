@@ -5,7 +5,6 @@ find_package(Catch2 REQUIRED EXPORT)
 find_package(cetlib REQUIRED EXPORT)
 find_package(cetlib_except REQUIRED EXPORT)
 find_package(fhiclcpp REQUIRED EXPORT)
-find_package(hep_concurrency REQUIRED)
 
 cet_make_library(LIBRARY_NAME MF_MessageLogger HEADERS_TARGET
   SOURCE
@@ -24,8 +23,6 @@ cet_make_library(LIBRARY_NAME MF_MessageLogger HEADERS_TARGET
     fhiclcpp::fhiclcpp
     cetlib::cetlib
     cetlib_except::cetlib_except
-  PRIVATE
-    hep_concurrency::hep_concurrency
 )
 
 install_headers(SUBDIRS MessageLogger MessageService)
