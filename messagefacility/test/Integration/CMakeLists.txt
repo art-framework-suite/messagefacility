@@ -26,7 +26,9 @@ cet_test(WildcardDebug_t
            Boost::filesystem
            Boost::program_options
          TEST_ARGS -c WildcardDebug_t.fcl
-         REF ${CMAKE_CURRENT_SOURCE_DIR}/WildcardDebug_t-ref.txt)
+         REF ${CMAKE_CURRENT_SOURCE_DIR}/WildcardDebug_t-ref.txt
+         OUTPUT_FILTERS cetlib::filter-output
+       )
 
 cet_build_plugin(Issue17457TestDestination mfPlugin NO_INSTALL LIBRARIES
   REG MF_MessageLogger fhiclcpp::types)
@@ -36,7 +38,8 @@ foreach (N IN ITEMS 01 02) # 03 04 05)
   cet_test(${test_stem}_t HANDBUILT
            TEST_EXEC ELdestinationTester
            TEST_ARGS -c ${test_stem}.fcl
-           OUTPUT_FILTERS DEFAULT ${CMAKE_CURRENT_SOURCE_DIR}/Issue17457-filter
+           OUTPUT_FILTERS cetlib::filter-output ${CMAKE_CURRENT_SOURCE_DIR}/Issue17457-filter
            REF ${CMAKE_CURRENT_SOURCE_DIR}/${test_stem}-ref.out
-           ${CMAKE_CURRENT_SOURCE_DIR}/${test_stem}-ref.err)
+           ${CMAKE_CURRENT_SOURCE_DIR}/${test_stem}-ref.err
+)
 endforeach()
