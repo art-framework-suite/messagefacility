@@ -2,7 +2,7 @@ include(CetMake)
 
 find_package(Boost COMPONENTS filesystem program_options REQUIRED)
 find_package(Catch2 REQUIRED EXPORT)
-find_package(cetlib 3.20.00 REQUIRED EXPORT) # For cetlib::filter-output
+find_package(cetlib 3.20.00-pre0 REQUIRED EXPORT) # For cetlib::filter-output
 find_package(cetlib_except REQUIRED EXPORT)
 find_package(fhiclcpp REQUIRED EXPORT)
 
