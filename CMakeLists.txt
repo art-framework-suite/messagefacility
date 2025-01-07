@@ -43,4 +43,4 @@ add_subdirectory(tools/migration)
 
 # This step enables building the package tarball
 # packaging utility
-cet_cmake_config(EXTRA_TARGET_VARS MF_MESSAGELOGGER MF_CATCH_MAIN)
+cet_cmake_config()
