@@ -1,3 +1,5 @@
+include(CetRegisterExportSet)
+
 cet_register_export_set(SET_NAME PluginTypes NAMESPACE art_plugin_types)
 
 # Easy generation of mfPlugins

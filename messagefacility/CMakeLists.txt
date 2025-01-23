@@ -1,4 +1,6 @@
-include(CetMake)
+include(CetMakeLibrary)
+include(InstallHeaders)
+include(InstallSource)
 
 find_package(Boost COMPONENTS filesystem program_options REQUIRED)
 find_package(Catch2 REQUIRED EXPORT)
