@@ -283,11 +283,9 @@ namespace mf {
 #ifdef MF_SUPPRESS_LOG_DEBUG
 
 #define MF_LOG_DEBUG(id)                                                       \
-  mf::NeverLogger_                                                             \
-  {}
+  mf::NeverLogger_ {}
 #define MF_LOG_TRACE(id)                                                       \
-  mf::NeverLogger_                                                             \
-  {}
+  mf::NeverLogger_ {}
 
 #else // MF_SUPPRESS_LOG_DEBUG
 

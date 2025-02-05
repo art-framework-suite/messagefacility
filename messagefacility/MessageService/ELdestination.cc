@@ -357,7 +357,7 @@ Category parameters
   }
 
   string
-  ELdestination::summarizeContext(const string& c)
+  ELdestination::summarizeContext(string const& c)
   {
     if (c.substr(0, 4) != "Run:") {
       return c;

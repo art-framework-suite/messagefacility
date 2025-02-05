@@ -4,11 +4,11 @@
 #include <string>
 
 struct Thing : public cet::exception {
-  Thing(const std::string& msg) : exception("Thing", msg) {}
+  Thing(std::string const& msg) : exception("Thing", msg) {}
 };
 
 std::ostream&
-operator<<(std::ostream& os, const Thing& t)
+operator<<(std::ostream& os, Thing const& t)
 {
   os << "Thing(" << t.explain_self() << ")";
   return os;

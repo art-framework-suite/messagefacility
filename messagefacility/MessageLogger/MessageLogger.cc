@@ -351,10 +351,12 @@ namespace mf {
                                     "}\n"};
         default_statistics_config = fhicl::ParameterSet::make(default_config);
       }
-      makeDestinations(ordinaryDests, pluginFactory, destination_kind::ordinary);
+      makeDestinations(
+        ordinaryDests, pluginFactory, destination_kind::ordinary);
       auto statDests = dest_psets.get<fhicl::ParameterSet>(
         "statistics", default_statistics_config);
-      makeDestinations(statDests, pluginStatsFactory, destination_kind::statistics);
+      makeDestinations(
+        statDests, pluginStatsFactory, destination_kind::statistics);
     }
 
     void

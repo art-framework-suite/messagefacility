@@ -12,13 +12,13 @@ struct Thing {
 };
 
 std::ostream&
-operator<<(std::ostream& os, const Thing& t)
+operator<<(std::ostream& os, Thing const& t)
 {
   os << "Thing(" << t.x << ")";
   return os;
 }
 
-const char expected[] = "---- InfiniteLoop BEGIN\n"
+char const expected[] = "---- InfiniteLoop BEGIN\n"
                         "  In func1\n"
                         "  ---- DataCorrupt BEGIN\n"
                         "    This is just a test: \n"
@@ -108,7 +108,7 @@ func1()
 //   "Gave up\n"
 //   "---- InfiniteLoop END\n"
 
-const char* correct[] = {"InfiniteLoop", "DataCorrupt"};
+char const* correct[] = {"InfiniteLoop", "DataCorrupt"};
 
 int
 main()
