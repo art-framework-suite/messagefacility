@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18.2 FATAL_ERROR)
 
 find_package(cetmodules 2.13.00 REQUIRED)
-project(messagefacility VERSION 2.11.00 LANGUAGES CXX)
+project(messagefacility VERSION 2.11.01 LANGUAGES CXX)
 
 include(CetCMakeEnv)
 include(CetCMakeUtils) # cet_cmake_module_directories()
